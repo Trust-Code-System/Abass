@@ -45,6 +45,26 @@ export function ProjectCard({
             {project.number}
           </div>
           <div className="relative z-10">
+            {(project.domain || project.year || project.status) && (
+              <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+                {project.domain ? <span>{project.domain}</span> : null}
+                {project.year ? (
+                  <>
+                    <span aria-hidden className="text-muted/40">
+                      /
+                    </span>
+                    <span>{project.year}</span>
+                  </>
+                ) : null}
+                {project.status ? (
+                  <span className="inline-flex items-center gap-1.5 text-accent">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden />
+                    {project.status}
+                  </span>
+                ) : null}
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-2">
               {project.tags.map((t) => (
                 <SkillBadge key={t}>{t}</SkillBadge>

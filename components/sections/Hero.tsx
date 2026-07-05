@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { AnimatedText } from "@/components/ui/AnimatedText";
-import { AvatarImage } from "@/components/ui/AvatarImage";
+import { Terminal } from "@/components/ui/Terminal";
 
 const roles = [
   "IT Support Specialist (Oil & Gas)",
@@ -126,7 +126,7 @@ export function Hero() {
             </a>
           </motion.div>
 
-          <motion.div variants={item} className="mt-10 flex flex-wrap gap-4">
+          <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-4">
             <Link
               href="https://github.com/Lingz450"
               target="_blank"
@@ -145,6 +145,18 @@ export function Hero() {
             >
               LinkedIn &#8599;
             </Link>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("open-command-palette"))}
+              className="inline-flex items-center gap-2 rounded-xs border border-border bg-surface/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:border-accent/60 hover:text-accent"
+              aria-label="Open command palette"
+            >
+              Press
+              <kbd className="rounded-xs border border-border px-1.5 py-0.5 text-[10px] text-text">
+                ⌘K
+              </kbd>
+              to explore
+            </button>
           </motion.div>
         </motion.div>
 
@@ -154,51 +166,26 @@ export function Hero() {
           transition={{ duration: 0.8, ease, delay: 0.25 }}
           className="relative"
         >
-          <div className="rounded-sm border border-border bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.55)]">
-            <div className="flex items-center gap-4">
-              <AvatarImage />
-              <div>
-                <div className="font-display text-[18px] font-bold tracking-[-0.03em] text-text">
-                  Abass Ibrahim
+          <Terminal />
+
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            {[
+              { k: "3+", v: "Years" },
+              { k: "7", v: "Live Apps" },
+              { k: "500+", v: "Community" },
+            ].map((s) => (
+              <div
+                key={s.v}
+                className="rounded-xs border border-border bg-surface px-4 py-3 text-center"
+              >
+                <div className="font-display text-[22px] font-extrabold tracking-[-0.04em] text-text">
+                  {s.k}
                 </div>
-                <div className="font-mono text-[12px] uppercase tracking-[0.22em] text-muted">
-                  Lagos State, Nigeria
+                <div className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.22em] text-muted">
+                  {s.v}
                 </div>
               </div>
-            </div>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              {[
-                { k: "3+ Years", v: "Experience" },
-                { k: "20+ Stack", v: "Tools & Tech" },
-                { k: "6+ Domains", v: "Roles" },
-                { k: "\u221e Drive", v: "Always Learning" },
-              ].map((s) => (
-                <div
-                  key={s.k}
-                  className="rounded-xs border border-border bg-bg/30 px-4 py-3"
-                >
-                  <div className="font-display text-[18px] font-extrabold tracking-[-0.04em] text-text">
-                    {s.k}
-                  </div>
-                  <div className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
-                    {s.v}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 inline-flex items-center gap-3 rounded-xs border border-border bg-bg/30 px-4 py-2">
-              <motion.span
-                className="h-2.5 w-2.5 rounded-full bg-accent"
-                animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                aria-hidden
-              />
-              <span className="font-mono text-[12px] uppercase tracking-[0.22em] text-text/90">
-                Open to Opportunities
-              </span>
-            </div>
+            ))}
           </div>
         </motion.div>
       </div>

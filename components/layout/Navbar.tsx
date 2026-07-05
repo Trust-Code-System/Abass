@@ -13,9 +13,14 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
 const navLinks = [
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#writing", label: "Writing" },
 ];
+
+function openPalette() {
+  window.dispatchEvent(new Event("open-command-palette"));
+}
 
 function scrollToHash(hash: string) {
   const id = hash.replace("#", "");
@@ -68,6 +73,18 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={openPalette}
+              className="hidden items-center gap-2 rounded-xs border border-border bg-surface/70 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted transition-colors hover:border-accent/60 hover:text-accent md:inline-flex"
+              aria-label="Open command palette"
+            >
+              <span aria-hidden>⌕</span>
+              Search
+              <kbd className="rounded-xs border border-border px-1.5 py-0.5 text-[10px] text-text/90">
+                ⌘K
+              </kbd>
+            </button>
             <div className="hidden md:flex">
               <ThemeToggle />
             </div>

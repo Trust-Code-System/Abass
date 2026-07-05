@@ -36,23 +36,24 @@ export function About() {
 
             <div className="mt-7 space-y-5 text-[15px] leading-8 text-muted">
               <p>
-                I&apos;m Abass Ibrahim, based in Lagos State, Nigeria. My work lives at
-                the intersection of clean interface design, dependable engineering, and calm
-                problem-solving under real-world constraints. I enjoy building products that feel
-                sharp, intentional, and fast — the kind of UI that earns trust in the first few
-                seconds.
+                I&apos;m Abass Ibrahim, a self-taught full-stack developer based in Lagos, Nigeria.
+                My work lives at the intersection of clean interface design, dependable engineering,
+                and calm problem-solving under real-world constraints — the kind of UI that earns
+                trust in the first few seconds and holds up in production.
               </p>
               <p>
-                Professionally, I work as an IT Support Specialist in the Oil &amp; Gas sector, so I&apos;m
-                wired for uptime, clarity, and systems thinking. That background shapes how I
-                approach software: consistent patterns, strong defaults, readable flows, and the
-                discipline to ship features without breaking what already works.
+                By day I&apos;m an IT Support Specialist across two Oil &amp; Gas companies, so
+                I&apos;m wired for uptime, clarity, and systems thinking. That shapes how I write
+                software: consistent patterns, strong defaults, readable flows, and the discipline
+                to ship features without breaking what already works.
               </p>
               <p>
-                On the builder side, I lean frontend while staying comfortable across the stack —
-                from Next.js and APIs to databases and automation. I design in Figma only, and I
-                write about the craft on Hashnode and Medium: lessons from building, debugging, and
-                making complex ideas easier to work with.
+                Over the last few years I&apos;ve shipped{" "}
+                <span className="text-text">seven production web apps</span> across fintech,
+                e-commerce, edtech, HR, and marketplaces, contributed{" "}
+                <span className="text-text">600+ commits</span> to my own projects in the last year
+                alone, and grew a 500+ member trading community from zero. I lean frontend, stay
+                comfortable across the stack, and write about the craft on Hashnode and Medium.
               </p>
             </div>
 

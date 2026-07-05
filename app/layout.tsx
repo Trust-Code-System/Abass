@@ -25,15 +25,22 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Abass Ibrahim | IT Specialist & Full-Stack Developer",
+  metadataBase: new URL("https://abassibrahim.xyz"),
+  title: "Abass Ibrahim | Full-Stack Developer & IT Specialist",
   description:
-    "Portfolio of Abass Ibrahim — IT Support Specialist, Full-Stack Developer, UI/UX Designer, and Web3 Builder based in Lagos, Nigeria.",
+    "Portfolio of Abass Ibrahim — Full-Stack Developer, IT Support Specialist, and Web3 builder in Lagos, Nigeria. Seven shipped production apps across fintech, e-commerce, edtech, and HR.",
+  applicationName: "Abass Ibrahim — Portfolio",
+  authors: [{ name: "Abass Ibrahim", url: "https://abassibrahim.xyz" }],
+  creator: "Abass Ibrahim",
+  alternates: { canonical: "https://abassibrahim.xyz" },
   keywords: [
     "Abass Ibrahim",
     "Lagos developer",
     "Nigeria web developer",
     "IT Support Oil Gas",
     "Full-Stack React Next.js",
+    "Next.js TypeScript developer",
+    "Web3 builder Nigeria",
   ],
   openGraph: {
     title: "Abass Ibrahim | IT Specialist & Full-Stack Developer",
@@ -56,6 +63,36 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Abass Ibrahim",
+  jobTitle: "Full-Stack Developer & IT Support Specialist",
+  url: "https://abassibrahim.xyz",
+  email: "mailto:abassibrahim591@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Lagos",
+    addressCountry: "NG",
+  },
+  sameAs: [
+    "https://github.com/Lingz450",
+    "https://www.linkedin.com/in/abass-ibrahim-devv",
+    "https://hashnode.com/@ghost69",
+    "https://medium.com/@Ghost69",
+  ],
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Node.js",
+    "PostgreSQL",
+    "Web3",
+    "IT Support",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -64,6 +101,10 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${dmMono.variable} ${instrumentSerif.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
