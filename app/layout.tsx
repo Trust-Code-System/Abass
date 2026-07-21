@@ -25,6 +25,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abassibrahim.xyz"),
   title: "Abass Ibrahim | IT Specialist & Full-Stack Developer",
   description:
     "Portfolio of Abass Ibrahim — IT Support Specialist, Full-Stack Developer, UI/UX Designer, and Web3 Builder based in Lagos, Nigeria.",
