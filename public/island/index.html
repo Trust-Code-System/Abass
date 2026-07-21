@@ -562,7 +562,12 @@
   <div id="sky" class="night-only" aria-hidden="true"><div class="moon"></div></div>
   <div class="island-wrap" id="islandWrap">
     <div class="island-float">
-      <img src="/island/assets/island.webp" alt="A claymation island with a lighthouse, workshop, observatory, greenhouse, and trophy plaza" draggable="false">
+      <!-- 2x asset matters here: clicking a place zooms the island to scale(1.6),
+           so a retina screen at the 1400px max width needs ~4480px of image. -->
+      <img src="/island/assets/island.webp"
+           srcset="/island/assets/island.webp 2048w, /island/assets/island@2x.webp 4096w"
+           sizes="(max-width:720px) 132vw, min(1400px, 120vh * 16 / 9, 100vw)"
+           alt="A claymation island with a lighthouse, workshop, observatory, greenhouse, and trophy plaza" draggable="false">
     </div>
     <div class="ambient" aria-hidden="true">
       <div class="night-tint"></div>
