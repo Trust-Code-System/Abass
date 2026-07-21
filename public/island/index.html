@@ -562,11 +562,15 @@
   <div id="sky" class="night-only" aria-hidden="true"><div class="moon"></div></div>
   <div class="island-wrap" id="islandWrap">
     <div class="island-float">
-      <!-- 2x asset matters here: clicking a place zooms the island to scale(1.6),
-           so a retina screen at the 1400px max width needs ~4480px of image. -->
+      <!-- sizes is deliberately the ZOOMED width, not the layout width. Opening a
+           place scales the island to 2.05 (1.6 on narrow/reduced-motion), and
+           srcset selection ignores CSS transforms — so quoting the layout width
+           made every 1x screen pick the 2048 candidate and then upscale it 1.4x.
+           Layout 1400px x 2.05 = 2870px; 120vh*16/9 x 2.05 = 246vh*16/9;
+           100vw x 2.05 = 205vw; mobile 132vw x 1.6 = 211vw. -->
       <img src="/island/assets/island.webp"
            srcset="/island/assets/island.webp 2048w, /island/assets/island@2x.webp 4096w"
-           sizes="(max-width:720px) 132vw, min(1400px, 120vh * 16 / 9, 100vw)"
+           sizes="(max-width:720px) 211vw, min(2870px, 246vh * 16 / 9, 205vw)"
            alt="A claymation island with a lighthouse, workshop, observatory, greenhouse, and trophy plaza" draggable="false">
     </div>
     <div class="ambient" aria-hidden="true">
@@ -806,6 +810,10 @@ function render(key){
 }
 
 function openPlace(key){
+  // The nav, legend and panel prev/next can all fire before the entry gate is
+  // dismissed. Without this the island zooms behind the signboard, so the panel
+  // opens over a blurred gate and the building you picked is never visible.
+  enterIsland();
   render(key);
   current = key;
   const pos = SPOT_POS[key];
