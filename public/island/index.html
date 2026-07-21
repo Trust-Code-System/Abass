@@ -106,18 +106,26 @@
   /* ---------- legend ---------- */
   .legend{
     position:fixed;z-index:30;left:50%;bottom:clamp(.9rem,3vh,1.8rem);transform:translateX(-50%);
-    display:flex;gap:.3rem;flex-wrap:wrap;justify-content:center;
+    /* nowrap: the 8 places must stay INSIDE the pill. With flex-wrap:wrap the
+       last one ("Contact") spilled onto a second row under the bar as soon as
+       the natural width (~766px) passed max-width, i.e. below ~815px wide. */
+    display:flex;gap:.3rem;flex-wrap:nowrap;justify-content:center;
     width:max-content;max-width:94vw;
+    overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
     background:var(--card-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
     border:1px solid var(--card-border);border-radius:99px;padding:.45rem;
     box-shadow:0 16px 40px -20px rgba(57,53,47,.35);
     transition:opacity .5s,transform .5s;
   }
   body.zoomed .legend{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(12px)}
+  .legend::-webkit-scrollbar{display:none}
   .legend button{
-    font-family:inherit;font-size:.74rem;font-weight:400;letter-spacing:.03em;color:var(--char);
-    background:none;border:none;cursor:pointer;
-    padding:.5rem .85rem;border-radius:99px;transition:background .25s,color .25s;white-space:nowrap;
+    font-family:inherit;font-size:clamp(.66rem,1.5vw,.74rem);font-weight:400;
+    letter-spacing:.03em;color:var(--char);
+    background:none;border:none;cursor:pointer;flex:0 0 auto;
+    /* padding tightens as the viewport narrows so all 8 keep fitting on one row */
+    padding:.5rem clamp(.5rem,1.2vw,.85rem);
+    border-radius:99px;transition:background .25s,color .25s;white-space:nowrap;
   }
   .legend button:hover{background:rgba(232,92,65,.12);color:var(--terra)}
 
