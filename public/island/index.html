@@ -622,8 +622,12 @@
       <p class="sub">Abass Ibrahim — self-taught full-stack developer in Lagos. Five live products, a 500-member community, a room full of AI agents. Every building opens something.</p>
       <button class="enter" id="enterBtn">Enter the island →</button>
       <div class="tip">Click any building to explore</div>
-   </div>
-</div>
+    </div>
+  </div>
+</div><!-- /.gate — this close tag was missing, so the parser nested the
+             legend, veil, panel and close button INSIDE .gate. They then
+             inherited `visibility:hidden` from `body.entered .gate`, which
+             meant opening a place zoomed the island but showed no panel. -->
 
 <div class="legend" id="legend" aria-label="Island places">
   <button data-open="hello">🏮 Hello</button>
