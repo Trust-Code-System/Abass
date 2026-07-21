@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>abass. — full-stack developer, Lagos → worldwide</title>
+<meta name="description" content="Abass Ibrahim — self-taught full-stack developer. Explore the island: five live products, a 500-member community, AI agents, and a hello waiting at the trophy.">
+<link rel="canonical" href="https://abassibrahim.xyz/">
+<!-- This page is served statically from /public, so it does not inherit
+     the Next app's metadata from app/layout.tsx — tags are set here. -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://abassibrahim.xyz/">
+<meta property="og:title" content="abass. — full-stack developer, Lagos → worldwide">
+<meta property="og:description" content="An island you can explore. Five live products, a 500-member community, AI agents — and a hello waiting at the trophy.">
+<meta property="og:image" content="https://abassibrahim.xyz/images/abass.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="abass. — full-stack developer, Lagos → worldwide">
+<meta name="twitter:description" content="An island you can explore. Five live products, a 500-member community, AI agents — and a hello waiting at the trophy.">
+<meta name="twitter:image" content="https://abassibrahim.xyz/images/abass.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F4EF;
+    --terra:#E85C41;
+    --sage:#A9B5A0;
+    --char:#39352F;
+    --char-soft:#6B655C;
+    --card-bg:rgba(252,250,246,.72);
+    --card-border:rgba(57,53,47,.08);
+    --zoom-ease:cubic-bezier(.22,.9,.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--cream);color:var(--char);
+    font-family:'Sora',system-ui,sans-serif;font-weight:300;
+    overflow:hidden;height:100svh;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--terra);color:var(--cream)}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;inset:0 0 auto 0;z-index:60;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem clamp(1.2rem,4vw,3rem);
+  }
+  .wordmark{font-family:'Fraunces',serif;font-weight:600;font-size:1.45rem;letter-spacing:-.02em;color:var(--char);text-decoration:none}
+  .wordmark span{color:var(--terra)}
+  .nav-right{display:flex;align-items:center;gap:clamp(1rem,2.5vw,2.2rem)}
+  .nav-link{font-size:.82rem;font-weight:400;letter-spacing:.04em;color:var(--char-soft);text-decoration:none;background:none;border:none;cursor:pointer;font-family:inherit;transition:color .25s}
+  .nav-link:hover{color:var(--terra)}
+  .nav-cta{
+    font-size:.82rem;font-weight:500;color:var(--cream);background:var(--char);
+    padding:.62rem 1.35rem;border-radius:99px;text-decoration:none;
+    transition:background .25s,transform .25s;
+  }
+  .nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+  @media (max-width:720px){.nav-link{display:none}}
+
+  /* ---------- world ---------- */
+  .world{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .island-wrap{
+    position:relative;
+    width:min(1400px,120vh * 16 / 9,100vw);
+    aspect-ratio:16/9;
+    flex:0 0 auto;                 /* never let the flex parent squash it */
+    transition:transform 1.1s var(--zoom-ease);
+    will-change:transform;
+  }
+  .island-wrap img{width:100%;height:100%;object-fit:contain;display:block;user-select:none;-webkit-user-drag:none}
+  body.zoomed .island-wrap{transition:transform 1.1s var(--zoom-ease)}
+
+  /* gentle idle float */
+  @keyframes bob{from{translate:0 0}to{translate:0 -10px}}
+  .island-float{animation:bob 6s ease-in-out infinite alternate}
+  body.zoomed .island-float{animation-play-state:paused}
+
+  /* ---------- hotspots ---------- */
+  /* invisible until you point at them — the buildings are the interface */
+  .spot{
+    position:absolute;z-index:20;
+    width:82px;height:82px;margin:-41px 0 0 -41px;
+    background:none;border:none;cursor:pointer;padding:0;
+    transition:opacity .4s;
+  }
+  body.zoomed .spot{opacity:0;pointer-events:none}
+  .spot .ring{
+    position:absolute;inset:6px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(232,92,65,.20),rgba(232,92,65,.07) 62%,transparent);
+    opacity:0;transform:scale(.72);
+    transition:opacity .3s,transform .35s cubic-bezier(.22,.9,.3,1);
+  }
+  .spot:hover .ring,.spot:focus-visible .ring{opacity:1;transform:scale(1)}
+  .spot .tag{
+    position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%) translateY(4px);
+    background:var(--char);color:var(--cream);
+    font-size:.7rem;font-weight:500;letter-spacing:.08em;white-space:nowrap;
+    padding:.38rem .8rem;border-radius:99px;
+    opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;
+  }
+  .spot:hover .tag,.spot:focus-visible .tag{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---------- legend ---------- */
+  .legend{
+    position:fixed;z-index:30;left:50%;bottom:clamp(.9rem,3vh,1.8rem);transform:translateX(-50%);
+    display:flex;gap:.3rem;flex-wrap:wrap;justify-content:center;
+    width:max-content;max-width:94vw;
+    background:var(--card-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--card-border);border-radius:99px;padding:.45rem;
+    box-shadow:0 16px 40px -20px rgba(57,53,47,.35);
+    transition:opacity .5s,transform .5s;
+  }
+  body.zoomed .legend{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(12px)}
+  .legend button{
+    font-family:inherit;font-size:.74rem;font-weight:400;letter-spacing:.03em;color:var(--char);
+    background:none;border:none;cursor:pointer;
+    padding:.5rem .85rem;border-radius:99px;transition:background .25s,color .25s;white-space:nowrap;
+  }
+  .legend button:hover{background:rgba(232,92,65,.12);color:var(--terra)}
+
+  /* ---------- panel ---------- */
+  .veil{
+    position:fixed;inset:0;z-index:40;
+    background:rgba(247,244,239,.25);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+    opacity:0;pointer-events:none;transition:opacity .6s;
+  }
+  body.zoomed .veil{opacity:1;pointer-events:auto}
+  .panel{
+    position:fixed;z-index:45;top:0;right:0;height:100svh;
+    width:min(30rem,100vw);
+    display:flex;align-items:center;
+    padding:clamp(.8rem,2vw,1.6rem);
+    transform:translateX(calc(100% + 2rem));
+    transition:transform .9s var(--zoom-ease);
+  }
+  body.zoomed .panel{transform:translateX(0)}
+  .panel-card{
+    width:100%;max-height:94svh;overflow-y:auto;
+    background:var(--card-bg);
+    backdrop-filter:blur(20px) saturate(1.15);-webkit-backdrop-filter:blur(20px) saturate(1.15);
+    border:1px solid var(--card-border);border-radius:22px;
+    padding:clamp(1.4rem,2.6vw,2.2rem);
+    box-shadow:0 30px 70px -30px rgba(57,53,47,.4);
+    scrollbar-width:thin;
+  }
+  .panel-art{
+    width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:14px;
+    margin-bottom:1.3rem;box-shadow:0 14px 34px -18px rgba(57,53,47,.4);
+  }
+  .panel-art.fit{
+    object-fit:contain;aspect-ratio:4/3;box-shadow:none;
+    background:radial-gradient(ellipse 62% 58% at 50% 50%,rgba(169,181,160,.16),transparent 72%);
+  }
+  .counter{font-size:.72rem;letter-spacing:.28em;color:var(--char-soft)}
+  .kicker{margin-top:.7rem;font-size:.74rem;font-weight:600;letter-spacing:.24em;color:var(--terra);text-transform:uppercase}
+  .promise{margin-top:.9rem;font-family:'Fraunces',serif;font-style:italic;font-weight:500;font-size:clamp(1.25rem,2.2vw,1.55rem);line-height:1.25;letter-spacing:-.01em}
+  .body-copy{margin-top:.9rem;font-size:.92rem;line-height:1.75;color:var(--char-soft)}
+  .body-copy strong{font-weight:500;color:var(--char)}
+  .body-copy a{color:var(--terra);text-decoration:none;border-bottom:1px solid rgba(232,92,65,.35)}
+  .chips{margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:.5rem}
+  .chip{font-size:.7rem;letter-spacing:.05em;color:var(--char);background:rgba(169,181,160,.22);border:1px solid rgba(169,181,160,.4);padding:.34rem .8rem;border-radius:99px}
+  .cta-row{margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap}
+  .btn{font-size:.85rem;font-weight:500;text-decoration:none;border-radius:99px;padding:.75rem 1.5rem;transition:transform .25s,background .25s,color .25s}
+  .btn-primary{background:var(--terra);color:var(--cream)}
+  .btn-primary:hover{background:var(--char);transform:translateY(-2px)}
+  .btn-ghost{border:1px solid rgba(57,53,47,.25);color:var(--char)}
+  .btn-ghost:hover{border-color:var(--terra);color:var(--terra);transform:translateY(-2px)}
+  .panel-close{
+    position:absolute;top:clamp(1.2rem,3vw,1.8rem);right:clamp(1.2rem,3vw,2rem);z-index:46;
+    width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--char);color:var(--cream);font-size:1.05rem;line-height:1;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 10px 26px -12px rgba(57,53,47,.5);
+    transition:background .25s,transform .25s;
+  }
+  .panel-close:hover{background:var(--terra);transform:rotate(90deg)}
+  .panel-close[hidden]{display:none}
+  .panel-nav{margin-top:1.5rem;display:flex;justify-content:space-between;gap:.8rem}
+  .panel-nav button{
+    font-family:inherit;font-size:.76rem;font-weight:500;letter-spacing:.05em;color:var(--char-soft);
+    background:none;border:none;cursor:pointer;padding:.4rem 0;transition:color .25s;
+  }
+  .panel-nav button:hover{color:var(--terra)}
+
+  /* ---------- cinematic layer ---------- */
+  .fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+  .fx-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 110% 100% at 50% 45%,transparent 58%,rgba(57,53,47,.13))}
+  .fx-grain{
+    position:absolute;inset:-100px;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 900ms steps(4) infinite;
+  }
+  @keyframes grain{
+    0%{transform:translate(0,0)}25%{transform:translate(-42px,28px)}
+    50%{transform:translate(30px,-36px)}75%{transform:translate(-18px,-24px)}100%{transform:translate(0,0)}
+  }
+  .dust{position:absolute;border-radius:50%;background:var(--terra);opacity:0;animation:float var(--dur) linear infinite var(--delay)}
+  @keyframes float{
+    0%{transform:translateY(20vh) translateX(0);opacity:0}
+    12%{opacity:var(--op)}88%{opacity:var(--op)}
+    100%{transform:translateY(-110vh) translateX(var(--dx));opacity:0}
+  }
+
+  footer{
+    position:fixed;z-index:30;left:clamp(1.2rem,4vw,3rem);bottom:clamp(.9rem,3vh,1.6rem);
+    font-size:.72rem;color:var(--char-soft);
+    transition:opacity .5s;
+  }
+  body.zoomed footer{opacity:0}
+  footer a{color:var(--char-soft);text-decoration:none;margin-right:1rem}
+  footer a:hover{color:var(--terra)}
+  @media (max-width:900px){footer{display:none}}
+
+  /* ---------- entry signboard ---------- */
+  .gate{
+    position:fixed;inset:0;z-index:70;
+    display:flex;align-items:center;justify-content:center;
+    padding:1.5rem;background:var(--cream);
+    transition:opacity .9s ease,visibility .9s;
+  }
+  body.night .gate{background:#26242C}
+  body.entered .gate{opacity:0;visibility:hidden;pointer-events:none}
+  .board{
+    position:relative;max-width:min(37rem,92vw);text-align:center;
+    padding:clamp(1.8rem,4vw,3rem) clamp(1.5rem,4vw,3.2rem) clamp(2rem,4.5vw,3.2rem);
+    border-radius:30px;
+    background:linear-gradient(168deg,#F2A88F,#E8785C 42%,#D9614A);
+    box-shadow:
+      inset 0 3px 0 rgba(255,255,255,.34),
+      inset 0 -8px 16px rgba(120,48,32,.28),
+      0 30px 60px -26px rgba(57,53,47,.55);
+    animation:boardIn 1.1s cubic-bezier(.22,1.1,.36,1) both;
+  }
+  @keyframes boardIn{
+    from{opacity:0;transform:translateY(-26px) rotate(-1.6deg) scale(.94)}
+    to{opacity:1;transform:none}
+  }
+  /* two clay posts holding the board up */
+  .board::before,.board::after{
+    content:"";position:absolute;top:100%;width:20px;height:clamp(28px,5vh,52px);
+    background:linear-gradient(#C9573F,#A8462F);border-radius:0 0 10px 10px;
+    box-shadow:inset -3px 0 5px rgba(0,0,0,.18);
+  }
+  .board::before{left:19%}
+  .board::after{right:19%}
+  .board-inner{
+    background:rgba(252,249,244,.94);border-radius:20px;
+    padding:clamp(1.4rem,3vw,2.2rem) clamp(1.2rem,3vw,2rem);
+    box-shadow:inset 0 2px 8px rgba(120,48,32,.14);
+  }
+  body.night .board-inner{background:rgba(48,45,54,.94)}
+  .board h1{
+    font-family:'Fraunces',serif;font-weight:400;letter-spacing:-.025em;
+    font-size:clamp(1.7rem,4.4vw,3rem);line-height:1.07;color:var(--char);
+  }
+  body.night .board h1{color:#F5F0E7}
+  .board h1 em{font-style:italic;color:var(--terra)}
+  .board .sub{
+    margin:1rem auto 0;max-width:32em;line-height:1.68;
+    font-size:clamp(.86rem,1.3vw,.98rem);color:var(--char-soft);
+  }
+  body.night .board .sub{color:#B4ADA0}
+  .board .enter{
+    margin-top:1.6rem;font-family:inherit;font-size:.9rem;font-weight:500;cursor:pointer;
+    color:var(--cream);background:var(--char);border:none;
+    padding:.85rem 2rem;border-radius:99px;
+    transition:background .25s,transform .25s;
+  }
+  .board .enter:hover{background:var(--terra);transform:translateY(-2px)}
+  .board .tip{
+    margin-top:1rem;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--char-soft);opacity:.8;
+  }
+  body.night .board .tip{color:#9A9488}
+
+  /* ---------- 3D logo tiles ---------- */
+  .logo-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));
+    gap:.55rem;margin-top:.6rem;
+  }
+  .logo-tile{
+    position:relative;aspect-ratio:1;border-radius:17px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.28rem;
+    background:
+      linear-gradient(163deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%),
+      linear-gradient(163deg,var(--tint) 0%,color-mix(in srgb,var(--tint) 72%,#8a6a55) 100%);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.5),
+      inset 0 -4px 8px rgba(90,60,45,.22),
+      0 7px 14px -7px rgba(57,53,47,.5);
+    --ink:color-mix(in srgb,var(--tint) 26%,#2A2320);
+    transform:rotateX(13deg);
+    transition:transform .38s var(--zoom-ease),box-shadow .38s;
+  }
+  .logo-tile:hover{
+    transform:rotateX(0deg) translateY(-5px) scale(1.05);
+    box-shadow:
+      inset 0 2px 0 rgba(255,255,255,.55),
+      inset 0 -4px 8px rgba(90,60,45,.2),
+      0 16px 26px -12px rgba(57,53,47,.55);
+  }
+  .logo-tile svg{width:44%;height:44%;color:var(--ink);display:block}
+  .logo-tile .mono{
+    font-family:'Sora',sans-serif;font-weight:600;font-size:.92rem;letter-spacing:-.02em;
+    color:var(--ink);line-height:1;
+  }
+  .logo-tile .nm{
+    font-size:.5rem;letter-spacing:.03em;font-weight:500;text-align:center;
+    color:rgba(41,34,28,.66);padding:0 .2rem;line-height:1.15;
+  }
+  .logo-tile.on-dark{--ink:rgba(255,255,255,.93)}
+  .logo-tile.on-dark .nm{color:rgba(255,255,255,.75)}
+  body.night .logo-tile .nm{color:rgba(255,255,255,.62)}
+  @media (prefers-reduced-motion:reduce){
+    .logo-tile{transform:none;transition:none}
+    .logo-tile:hover{transform:translateY(-3px)}
+  }
+
+  /* ---------- robot chat ---------- */
+  .chat-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+  .chat-avatar{
+    width:42px;height:42px;border-radius:50%;flex:0 0 auto;
+    background:radial-gradient(circle at 38% 34%,#7C99B5,#4E6E8E);
+    display:flex;align-items:center;justify-content:center;font-size:1.15rem;
+    box-shadow:0 6px 16px -6px rgba(57,53,47,.5);
+  }
+  .chat-title{font-weight:500;font-size:.95rem;letter-spacing:-.01em}
+  .chat-sub{font-size:.72rem;color:var(--char-soft);margin-top:.1rem}
+  .chat-log{
+    display:flex;flex-direction:column;gap:.7rem;
+    max-height:min(46svh,380px);overflow-y:auto;padding:.2rem .1rem .4rem;
+    scroll-behavior:smooth;
+  }
+  .msg{max-width:88%;font-size:.88rem;line-height:1.65;padding:.7rem .95rem;border-radius:16px}
+  .msg.bot{align-self:flex-start;background:rgba(169,181,160,.2);border:1px solid rgba(169,181,160,.32);border-bottom-left-radius:5px}
+  .msg.me{align-self:flex-end;background:var(--terra);color:var(--cream);border-bottom-right-radius:5px}
+  .msg a{color:var(--terra);text-decoration:none;border-bottom:1px solid rgba(232,92,65,.4)}
+  .msg.me a{color:var(--cream);border-color:rgba(247,244,239,.5)}
+  .msg strong{font-weight:600}
+  body.night .msg.bot{background:rgba(169,181,160,.13);border-color:rgba(169,181,160,.24);color:#D9D3C7}
+  .typing{display:flex;gap:4px;align-items:center;padding:.8rem .95rem}
+  .typing i{width:6px;height:6px;border-radius:50%;background:var(--char-soft);animation:blip 1.2s ease-in-out infinite}
+  .typing i:nth-child(2){animation-delay:.18s}
+  .typing i:nth-child(3){animation-delay:.36s}
+  @keyframes blip{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:.9;transform:translateY(-3px)}}
+  .chat-sugs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.9rem}
+  .sug{
+    font-family:inherit;font-size:.72rem;color:var(--char);cursor:pointer;
+    background:rgba(169,181,160,.18);border:1px solid rgba(169,181,160,.38);
+    padding:.36rem .75rem;border-radius:99px;transition:background .2s,color .2s,transform .2s;
+  }
+  .sug:hover{background:rgba(232,92,65,.14);color:var(--terra);transform:translateY(-1px)}
+  body.night .sug{color:#D8D2C6;background:rgba(169,181,160,.12)}
+  .chat-form{display:flex;gap:.5rem;margin-top:.9rem}
+  .chat-form input{
+    flex:1;font-family:inherit;font-size:.86rem;color:var(--char);
+    background:rgba(255,255,255,.55);border:1px solid rgba(57,53,47,.16);
+    border-radius:99px;padding:.7rem 1rem;outline:none;transition:border-color .2s;
+  }
+  .chat-form input:focus{border-color:var(--terra)}
+  body.night .chat-form input{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);color:#EDE8DF}
+  .chat-form button{
+    flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--terra);color:var(--cream);font-size:1rem;
+    transition:background .2s,transform .2s;
+  }
+  .chat-form button:hover{background:var(--char);transform:translateY(-1px)}
+
+  /* ---------- stack groups ---------- */
+  .stack-group{margin-top:1.05rem}
+  .stack-group h4{
+    font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--char-soft);margin-bottom:.5rem;
+  }
+  .stack-group .chips{margin-top:0}
+  body.night .stack-group h4{color:#9A9488}
+
+  /* ---------- theme toggle buttons ---------- */
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;
+    border:1px solid rgba(57,53,47,.2);background:transparent;
+    display:flex;align-items:center;justify-content:center;
+    transition:border-color .25s,transform .25s;
+  }
+  .icon-btn:hover{border-color:var(--terra);transform:translateY(-1px)}
+
+  /* ---------- island ambient effects (no assets, pure CSS) ---------- */
+  .island-wrap{z-index:1}
+  .island-wrap img{
+    -webkit-mask-image:radial-gradient(ellipse 74% 64% at 50% 54%,#000 64%,transparent 93%);
+            mask-image:radial-gradient(ellipse 74% 64% at 50% 54%,#000 64%,transparent 93%);
+    transition:filter 1.2s;
+  }
+  .ambient{position:absolute;inset:0;pointer-events:none}
+  .ambient>*{position:absolute}
+  .night-tint{
+    inset:0;background:rgba(62,82,124,.4);mix-blend-mode:multiply;
+    opacity:0;transition:opacity 1.2s;
+    -webkit-mask-image:radial-gradient(ellipse 74% 64% at 50% 54%,#000 64%,transparent 93%);
+            mask-image:radial-gradient(ellipse 74% 64% at 50% 54%,#000 64%,transparent 93%);
+  }
+  body.night .night-tint{opacity:1}
+
+  .cloud{
+    width:26%;height:9%;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(255,255,255,.85),rgba(255,255,255,0));
+    filter:blur(6px);opacity:.5;
+    animation:drift var(--cd,85s) linear infinite;
+  }
+  .c1{top:7%;left:-30%;--cd:85s}
+  .c2{top:15%;left:-30%;width:20%;height:7%;animation-delay:-38s;--cd:115s}
+  .c3{top:3%;left:-30%;width:15%;height:6%;animation-delay:-72s;--cd:98s}
+  @keyframes drift{to{transform:translateX(520%)}}
+  body.night .cloud{opacity:.12}
+
+  .smoke i{
+    position:absolute;left:0;bottom:0;width:14px;height:14px;border-radius:50%;
+    background:rgba(240,236,228,.55);filter:blur(4px);opacity:0;
+    animation:puff 5.2s ease-out infinite;
+  }
+  .smoke i:nth-child(2){animation-delay:1.7s;width:11px;height:11px}
+  .smoke i:nth-child(3){animation-delay:3.4s;width:9px;height:9px}
+  @keyframes puff{
+    0%{transform:translate(0,0) scale(.5);opacity:0}
+    12%{opacity:.55}
+    100%{transform:translate(26px,-90px) scale(2.3);opacity:0}
+  }
+  body.night .smoke i{background:rgba(205,210,225,.4)}
+
+  .lantern-glow{
+    width:9%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);
+    background:radial-gradient(closest-side,rgba(255,196,110,.5),rgba(255,196,110,0));
+    animation:flicker 3.6s ease-in-out infinite;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:.5}8%{opacity:.72}14%{opacity:.55}
+    50%{opacity:.85}62%{opacity:.6}78%{opacity:.8}
+  }
+  body.night .lantern-glow{
+    width:13%;
+    background:radial-gradient(closest-side,rgba(255,190,96,.85),rgba(255,190,96,0));
+  }
+  .beam{
+    width:56%;height:34%;margin-top:-9.6%;
+    transform-origin:0 50%;
+    background:conic-gradient(from 82deg at 0% 50%,transparent 0deg,rgba(255,214,140,.32) 4deg,rgba(255,214,140,.07) 10deg,transparent 14deg);
+    filter:blur(6px);
+    -webkit-mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent 90%);
+            mask-image:linear-gradient(to right,rgba(0,0,0,.95),transparent 90%);
+    animation:sweep 11s ease-in-out infinite alternate;
+  }
+  @keyframes sweep{from{rotate:-4deg}to{rotate:30deg}}
+
+  .glow{
+    aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);
+    background:radial-gradient(closest-side,rgba(255,190,110,.55),transparent);
+    filter:blur(2px);
+  }
+  .pathlight{
+    width:3.2%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);
+    background:radial-gradient(closest-side,rgba(255,224,160,.95) 0 16%,rgba(255,196,110,.35) 42%,transparent);
+    animation:flicker 4.4s ease-in-out infinite;
+  }
+  .sparkle{
+    width:10px;height:10px;border-radius:50%;transform:translate(-50%,-50%);
+    background:radial-gradient(closest-side,#fff,transparent 65%);
+    animation:spark 7s ease-in-out infinite;
+  }
+  @keyframes spark{0%,86%,100%{opacity:0;scale:.4}90%{opacity:.9;scale:1.3}94%{opacity:.2}}
+
+  .firefly{
+    position:absolute;width:4px;height:4px;border-radius:50%;
+    background:#FFE28A;box-shadow:0 0 8px 2px rgba(255,226,138,.5);
+    animation:ffly var(--fd,4s) ease-in-out infinite var(--fdel,0s);
+  }
+  @keyframes ffly{
+    0%,100%{opacity:0;transform:translate(0,0)}
+    30%{opacity:.9}
+    50%{opacity:.25;transform:translate(var(--fx,10px),var(--fy,-8px))}
+    70%{opacity:.8}
+  }
+
+  .night-only{opacity:0;transition:opacity 1.2s;pointer-events:none}
+  body.night .night-only{opacity:1}
+
+  #sky{position:absolute;inset:0;overflow:hidden}
+  .star{
+    position:absolute;border-radius:50%;background:#EDE6D6;
+    animation:twinkle var(--td,3s) ease-in-out infinite var(--tdel,0s);
+  }
+  @keyframes twinkle{0%,100%{opacity:.12}50%{opacity:.85}}
+  .moon{
+    position:absolute;right:9%;top:11%;width:64px;height:64px;border-radius:50%;
+    background:radial-gradient(circle at 38% 38%,#F5EFE2,#D9D2C2 72%);
+    box-shadow:0 0 44px 12px rgba(240,230,200,.16);
+  }
+
+  /* ---------- night palette ---------- */
+  body{transition:background 1.2s,color 1.2s}
+  body.night{background:#26242C;color:#EDE8DF}
+  body.night .island-wrap img{filter:brightness(.52) saturate(.72) contrast(1.05)}
+  body.night .wordmark{color:#F3EEE6}
+  body.night .nav-link{color:#A9A294}
+  body.night .icon-btn{border-color:rgba(237,232,223,.25);color:#EDE8DF}
+  body.night .legend{background:rgba(46,44,54,.72);border-color:rgba(255,255,255,.07)}
+  body.night .legend button{color:#D8D2C6}
+  body.night .legend button:hover{background:rgba(232,92,65,.16);color:var(--terra)}
+  body.night .panel-card{background:rgba(44,42,52,.8);border-color:rgba(255,255,255,.08)}
+  body.night .promise{color:#F3EEE6}
+  body.night .counter{color:#9A9488}
+  body.night .body-copy{color:#B9B2A5}
+  body.night .body-copy strong{color:#EDE8DF}
+  body.night .chip{color:#D8D2C6;background:rgba(169,181,160,.14);border-color:rgba(169,181,160,.28)}
+  body.night .btn-ghost{border-color:rgba(237,232,223,.3);color:#EDE8DF}
+  body.night .panel-nav button{color:#9A9488}
+  body.night .panel-nav button:hover{color:var(--terra)}
+  body.night footer,body.night footer a{color:#8F897D}
+  body.night footer a:hover{color:var(--terra)}
+  body.night .fx-vignette{background:radial-gradient(ellipse 110% 100% at 50% 45%,transparent 55%,rgba(0,0,0,.35))}
+  body.night .veil{background:rgba(20,19,24,.35)}
+  body.night .spot .ring{background:radial-gradient(closest-side,rgba(255,190,110,.26),rgba(255,190,110,.08) 62%,transparent)}
+  body.night .fx-grain{opacity:.07}
+  body.night #dust{display:none}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:720px){
+    .spot{width:64px;height:64px;margin:-32px 0 0 -32px}
+    .island-wrap{width:132vw;margin-top:0}
+    .legend{max-width:94vw;border-radius:20px}
+    .panel{width:100vw;padding:.6rem}
+    .panel-card{max-height:84svh}
+    .panel-close{top:auto;bottom:1.1rem;right:1.1rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .island-float,.fx-grain,.dust{animation:none}
+    .ambient *,.star,.firefly{animation:none!important}
+    .beam{rotate:14deg;opacity:.5}
+    .island-wrap,.panel{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="/">abass<span>.</span></a>
+  <div class="nav-right">
+    <button class="nav-link" data-open="work">Work</button>
+    <button class="nav-link" data-open="craft">Craft</button>
+    <button class="nav-link" data-open="agents">Agents</button>
+    <button class="nav-link" data-open="close">Contact</button>
+    <a class="nav-link" href="/classic">Classic</a>
+    <button class="icon-btn" id="soundBtn" aria-label="Toggle ambient sound">🔈</button>
+    <button class="icon-btn" id="themeBtn" aria-label="Toggle night mode">🌙</button>
+    <a class="nav-cta" href="mailto:abassibrahim591@gmail.com">Say hello</a>
+  </div>
+</nav>
+
+<div class="world">
+  <div id="sky" class="night-only" aria-hidden="true"><div class="moon"></div></div>
+  <div class="island-wrap" id="islandWrap">
+    <div class="island-float">
+      <img src="/island/assets/island.webp" alt="A claymation island with a lighthouse, workshop, observatory, greenhouse, and trophy plaza" draggable="false">
+    </div>
+    <div class="ambient" aria-hidden="true">
+      <div class="night-tint"></div>
+      <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+      <div class="smoke" style="left:35%;top:31%"><i></i><i></i><i></i></div>
+      <div class="beam night-only" style="left:21.8%;top:20.5%"></div>
+      <div class="lantern-glow" style="left:21.8%;top:20.5%"></div>
+      <div class="glow night-only" style="left:33.5%;top:37%;width:8%"></div>
+      <div class="glow night-only" style="left:20.8%;top:55%;width:8%"></div>
+      <div class="glow night-only" style="left:33.5%;top:65%;width:8%"></div>
+      <div class="glow night-only" style="left:52.5%;top:33%;width:8%"></div>
+      <div class="glow night-only" style="left:69.3%;top:30%;width:8%"></div>
+      <div class="glow night-only" style="left:82.5%;top:47%;width:8%"></div>
+      <div class="glow night-only" style="left:66%;top:62%;width:7%"></div>
+      <div class="glow night-only" style="left:42%;top:37%;width:3.5%"></div>
+      <div class="pathlight night-only" style="left:30%;top:46%"></div>
+      <div class="pathlight night-only" style="left:45%;top:64%"></div>
+      <div class="pathlight night-only" style="left:59%;top:69%"></div>
+      <div class="pathlight night-only" style="left:75%;top:56%"></div>
+      <div class="sparkle" style="left:46.3%;top:49%"></div>
+      <div class="fireflies night-only" id="fireflies"></div>
+    </div>
+    <!-- hotspots: % positions on the island image -->
+    <button class="spot" style="left:21.8%;top:27%" data-open="hello" aria-label="The Lighthouse — hello"><span class="ring"></span><span class="tag">The Lighthouse · hello</span></button>
+    <button class="spot" style="left:33.5%;top:36%" data-open="work" aria-label="The Workshop — projects"><span class="ring"></span><span class="tag">The Workshop · projects</span></button>
+    <button class="spot" style="left:42%;top:37%" data-open="robot" aria-label="Ask abass, the island guide"><span class="ring"></span><span class="tag">Ask abass. ✦</span></button>
+    <button class="spot" style="left:52.5%;top:32.5%" data-open="craft" aria-label="The Greenhouse — craft"><span class="ring"></span><span class="tag">The Greenhouse · craft</span></button>
+    <button class="spot" style="left:69.3%;top:30%" data-open="agents" aria-label="The Studio — AI agents"><span class="ring"></span><span class="tag">The Studio · AI agents</span></button>
+    <button class="spot" style="left:50%;top:50%" data-open="close" aria-label="The Plaza — say hello"><span class="ring"></span><span class="tag">The Plaza · say hello</span></button>
+    <button class="spot" style="left:66%;top:61.5%" data-open="trustcode" aria-label="Trustcode System"><span class="ring"></span><span class="tag">Trustcode System</span></button>
+    <button class="spot" style="left:82.5%;top:46.5%" data-open="stack" aria-label="The Depot — my stack"><span class="ring"></span><span class="tag">The Depot · my stack</span></button>
+  </div>
+
+</div>
+
+<div class="gate" id="gate">
+  <div class="board">
+    <div class="board-inner">
+      <h1>A small island of<br>things that actually <em>ship.</em></h1>
+      <p class="sub">Abass Ibrahim — self-taught full-stack developer in Lagos. Five live products, a 500-member community, a room full of AI agents. Every building opens something.</p>
+      <button class="enter" id="enterBtn">Enter the island →</button>
+      <div class="tip">Click any building to explore</div>
+   </div>
+</div>
+
+<div class="legend" id="legend" aria-label="Island places">
+  <button data-open="hello">🏮 Hello</button>
+  <button data-open="work">🏠 Projects</button>
+  <button data-open="agents">🤖 AI Agents</button>
+  <button data-open="craft">🌱 Craft</button>
+  <button data-open="robot">✦ Ask</button>
+  <button data-open="stack">🧱 Stack</button>
+  <button data-open="trustcode">🛡 Trustcode</button>
+  <button data-open="close">🏆 Contact</button>
+</div>
+
+<div class="veil" id="veil"></div>
+
+<aside class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Island place details">
+  <div class="panel-card" id="panelCard"><!-- filled by JS --></div>
+</aside>
+<button class="panel-close" id="panelClose" aria-label="Back to the island" hidden>✕</button>
+
+<div class="fx" aria-hidden="true">
+  <div class="fx-vignette"></div>
+  <div class="fx-grain"></div>
+  <div id="dust"></div>
+</div>
+
+<footer>
+  <span>© 2026 Abass Ibrahim</span>
+  <a href="https://github.com/Lingz450" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://www.linkedin.com/in/abass-ibrahim-devv" target="_blank" rel="noopener">LinkedIn</a>
+  <a href="/classic">Classic portfolio</a>
+</footer>
+
+<script>
+/* ---------- place content ---------- */
+const PLACES = {
+  hello: {
+    n:'01', kicker:'The Lighthouse — hello', art:'/island/assets/scene-01-hello.webp',
+    promise:'"Some people build things. I build things people find their way to."',
+    body:`I'm <strong>Abass Ibrahim</strong> — a self-taught full-stack developer in Lagos, Nigeria. Three-plus years shipping production web apps across e-commerce, education, fintech and marketplaces, while keeping business-critical systems alive for two oil &amp; gas companies by day. Every building on this island is one part of how I work.`,
+    chips:['full-stack','self-taught','Lagos → remote'],
+  },
+  work: {
+    n:'02', kicker:'The Workshop — five live products', art:'/island/assets/scene-02-work.webp',
+    promise:'"Ideas leave my desk as finished, living things."',
+    body:`<a href="https://thethesisdesk.xyz/" target="_blank" rel="noopener"><strong>The Thesis Desk</strong></a> — a real-time crypto trading command center for the 500+ member community I founded. <a href="https://helpingtribeacademy.com/" target="_blank" rel="noopener"><strong>Helping Tribe Academy</strong></a> — a multi-role school platform. <a href="https://wearables-atelier.vercel.app/" target="_blank" rel="noopener"><strong>Wearables Atelier</strong></a> and <a href="https://9thluxe-store-two.vercel.app/" target="_blank" rel="noopener"><strong>Fàdè</strong></a> — two luxury e-commerce storefronts. <a href="https://aureeo.netlify.app/" target="_blank" rel="noopener"><strong>Aureo</strong></a> — a trust-first hiring marketplace. All shipped. All live.`,
+    chips:['Next.js','TypeScript','Tailwind','PostgreSQL · Prisma'],
+  },
+  craft: {
+    n:'03', kicker:'The Greenhouse — always growing', art:'/island/assets/scene-03-growing.webp',
+    promise:'"Every project waters the next one."',
+    body:`No CS degree — a greenhouse instead. <strong>600+ commits in the last year</strong>, lessons from real builds written up on <a href="https://hashnode.com/@ghost69" target="_blank" rel="noopener">Hashnode</a> and <a href="https://medium.com/@Ghost69" target="_blank" rel="noopener">Medium</a>, every project compounding into the next. Learning is the job; shipping is the proof.`,
+    chips:['600+ commits / yr','technical writing','iteration'],
+  },
+  agents: {
+    n:'04', kicker:'The Observatory — powered by agents', art:'/island/assets/scene-04-agents.webp',
+    promise:'"One person, operating like a small studio."',
+    body:`I build with AI agents — research, drafting, code, checks. <strong>RAG pipelines, automation bots, agentic tools</strong> that turn one developer into a production line. The robots handle the repetition; I handle the judgment.`,
+    chips:['AI agents','RAG','automation bots','Web3 tools'],
+  },
+  close: {
+    n:'05', kicker:'The Plaza — let’s build', art:'/island/assets/scene-06-close.webp',
+    promise:'"The best projects start with a hello."',
+    body:`Open to <strong>remote roles and collaborations worldwide</strong>. Have something in mind — a product, a platform, a rough idea? Reach out and let’s put a date on the calendar.`,
+    chips:['open to work','remote-ready'],
+    ctas:[
+      {label:'Say hello', href:'mailto:abassibrahim591@gmail.com', primary:true},
+      {label:'See the work', href:'https://github.com/Lingz450', primary:false},
+    ],
+  },
+};
+PLACES.stack = {
+  n:'03', kicker:'The Depot — my stack', art:'/island/assets/islet-stack.webp', fit:true,
+  promise:'"Boring, proven tools. Assembled with taste."',
+  body:`Everything I reach for, grouped by where it lives in a build. I go deep on a small set rather than shallow on everything — the whole island was built with these.`,
+  tiles:[
+    ['Languages',[
+      ['JavaScript','#E3C24C','mono','JS'],
+      ['TypeScript','#4E7FC1','mono','TS'],
+      ['HTML5','#E2703A','shield','5'],
+      ['CSS3','#4F8BC9','shield','3'],
+      ['Python','#4F7CA8','mono','Py'],
+    ]],
+    ['Frontend',[
+      ['React','#4FA3C7','react'],
+      ['Next.js','#4A4A50','next'],
+      ['Tailwind','#4CB6C4','tailwind'],
+      ['React Query','#D96A4A','query'],
+      ['Shadcn UI','#55524C','mono','/'],
+    ]],
+    ['Backend',[
+      ['Node.js','#7BA05B','hex'],
+      ['Express','#6E6A63','mono','ex'],
+      ['REST APIs','#A08A5B','api'],
+    ]],
+    ['Databases',[
+      ['PostgreSQL','#4A6E96','mono','Pg'],
+      ['Prisma','#3E5A6E','prisma'],
+      ['MongoDB','#6BA05B','leaf'],
+      ['Supabase','#4EA97B','bolt'],
+      ['Firebase','#E0A33E','flame'],
+    ]],
+    ['DevOps & tools',[
+      ['Git','#E06A46','git'],
+      ['GitHub','#55524C','mono','GH'],
+      ['Vercel','#4A4A50','triangle'],
+      ['Netlify','#46B0AC','diamond'],
+      ['VS Code','#4A87C4','mono','VS'],
+    ]],
+    ['Web3 & automation',[
+      ['Web3','#8A72B8','hex'],
+      ['AI agents','#C77A5E','spark'],
+      ['Trading bots','#A0864F','bolt'],
+    ]],
+  ],
+};
+PLACES.trustcode = {
+  n:'05', kicker:'The HQ — Trustcode System', art:'/island/assets/islet-trustcode.webp', fit:true,
+  promise:'"Software you can stake your business on."',
+  body:`<a href="https://trustcodesystem.tech/" target="_blank" rel="noopener"><strong>Trustcode System</strong></a> is the product engineering firm I co-founded — I'm the <strong>Full-Stack Delivery &amp; Design Lead</strong>, alongside a frontend lead in the UK, a cloud/backend lead, and an ISC2-certified SOC analyst leading security. Offices in <strong>Lagos and London</strong>, remote worldwide, <strong>15+ live products</strong> delivered across fintech, edtech, e-commerce, HR tech, Web3 and cybersecurity.<br><br>We ship in staged deliveries with weekly progress demos. Seven service lines: product &amp; web engineering, e-commerce, cloud &amp; DevOps on AWS, AI integration &amp; automation, cybersecurity &amp; SOC, managed IT support, and technical training. Featured work includes <strong>Atlas HR</strong>, a global HR platform with AI compliance features.`,
+  chips:['co-founder','15+ products','Lagos · London','AWS · SOC · AI'],
+  ctas:[{label:'Visit Trustcode', href:'https://trustcodesystem.tech/', primary:true}],
+};
+const ORDER = ['hello','work','stack','agents','trustcode','craft','close'];
+const TOTAL = String(ORDER.length).padStart(2,'0');
+PLACES.hello.n='01'; PLACES.work.n='02'; PLACES.agents.n='04'; PLACES.craft.n='06'; PLACES.close.n='07';
+const SPOT_POS = {}; // filled from hotspot buttons
+
+const wrap = document.getElementById('islandWrap');
+const panel = document.getElementById('panel');
+const panelCard = document.getElementById('panelCard');
+const closeBtn = document.getElementById('panelClose');
+const veil = document.getElementById('veil');
+let current = null;
+
+document.querySelectorAll('.spot').forEach(b=>{
+  SPOT_POS[b.dataset.open] = { x: parseFloat(b.style.left), y: parseFloat(b.style.top) };
+});
+
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isNarrow = () => matchMedia('(max-width: 720px)').matches;
+
+/* ---------- 3D clay logo tiles ---------- */
+const GLYPH = {
+  react:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.15"><ellipse cx="12" cy="12" rx="10.2" ry="4"/><ellipse cx="12" cy="12" rx="10.2" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.2" ry="4" transform="rotate(120 12 12)"/></g></svg>`,
+  next:`<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.6" stroke="currentColor" stroke-width="1.5"/><path d="M8.7 16.6V7.4l7 9.6M15.4 7.4v6.2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>`,
+  tailwind:`<svg viewBox="0 0 24 24"><g fill="currentColor"><path d="M7 7c-2.3 0-3.75 1.15-4.35 3.45.88-1.15 1.9-1.58 3.05-1.3.66.17 1.13.65 1.64 1.18C8.2 11.2 9.16 12.2 11 12.2c2.3 0 3.75-1.15 4.35-3.45-.88 1.15-1.9 1.58-3.05 1.3-.66-.17-1.13-.65-1.64-1.18C9.8 8 8.84 7 7 7Z"/><path opacity=".5" d="M13 13.6c-2.3 0-3.75 1.15-4.35 3.45.88-1.15 1.9-1.58 3.05-1.3.66.17 1.13.65 1.64 1.18 1.22 1.27 2.18 2.27 4.02 2.27 2.3 0 3.75-1.15 4.35-3.45-.88 1.15-1.9 1.58-3.05 1.3-.66-.17-1.13-.65-1.64-1.18-1.22-1.27-2.18-2.27-4.02-2.27Z"/></g></svg>`,
+  hex:`<svg viewBox="0 0 24 24"><path d="M12 2.4 20.6 7.2v9.6L12 21.6 3.4 16.8V7.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`,
+  leaf:`<svg viewBox="0 0 24 24"><path d="M12 2.2c3.4 4 5.3 6.9 5.3 10 0 3.5-2.3 6.2-5.3 7.6-3-1.4-5.3-4.1-5.3-7.6 0-3.1 1.9-6 5.3-10Z" fill="currentColor"/><path d="M12 5.4v14" stroke="rgba(255,255,255,.5)" stroke-width="1.1"/></svg>`,
+  flame:`<svg viewBox="0 0 24 24"><path d="M12 2.4c1.2 3 .2 4.6-1 6.2-1.4 1.9-3.2 3.4-3.2 6.1A6.2 6.2 0 0 0 18.2 15c0-3.4-2.3-5.2-3.6-7.8-.6 1-1.3 1.6-2.2 2 .6-2.3.4-4.4-.4-6.8Z" fill="currentColor"/></svg>`,
+  bolt:`<svg viewBox="0 0 24 24"><path d="M13.4 2 5.2 13.4h5.3L9.9 22l8.9-11.6h-5.5z" fill="currentColor"/></svg>`,
+  prisma:`<svg viewBox="0 0 24 24"><path d="M6.6 17.3 13.1 2.7c.34-.76 1.45-.64 1.62.18l3.22 14.9c.13.58-.39 1.11-.97 1L7.38 18.57a.84.84 0 0 1-.78-1.27Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>`,
+  triangle:`<svg viewBox="0 0 24 24"><path d="M12 3.8 21.6 20.2H2.4z" fill="currentColor"/></svg>`,
+  diamond:`<svg viewBox="0 0 24 24"><path d="M12 2.6 21.4 12 12 21.4 2.6 12z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>`,
+  git:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6.6" cy="17.8" r="2.3"/><circle cx="6.6" cy="6.2" r="2.3"/><circle cx="17.4" cy="9.6" r="2.3"/><path d="M6.6 8.5v7M15.3 11.3c-1.6 2-4.2 2.5-6.5 2.5" stroke-linecap="round"/></svg>`,
+  query:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="6.4" rx="7.3" ry="2.9"/><path d="M4.7 6.4v5.2c0 1.6 3.27 2.9 7.3 2.9s7.3-1.3 7.3-2.9V6.4M4.7 11.6v5.2c0 1.6 3.27 2.9 7.3 2.9s7.3-1.3 7.3-2.9v-5.2"/></svg>`,
+  api:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.8 4.6C6.4 4.6 6.4 7.5 6.4 9c0 1.5-1 2.9-2.4 2.9 1.4 0 2.4 1.4 2.4 2.9 0 1.5 0 4.4 2.4 4.4M15.2 4.6c2.4 0 2.4 2.9 2.4 4.4 0 1.5 1 2.9 2.4 2.9-1.4 0-2.4 1.4-2.4 2.9 0 1.5 0 4.4-2.4 4.4"/></svg>`,
+  spark:`<svg viewBox="0 0 24 24"><path d="M12 2.4 13.85 9 20.6 11l-6.75 2L12 19.6 10.15 13 3.4 11 10.15 9z" fill="currentColor"/></svg>`,
+  shield:(t)=>`<svg viewBox="0 0 24 24"><path d="M4.6 3.6h14.8l-1.35 14.8L12 20.8l-6.05-2.4z" fill="currentColor" opacity=".92"/><text x="12" y="15.4" text-anchor="middle" font-size="8.6" font-weight="700" fill="rgba(255,255,255,.92)" font-family="Sora,sans-serif">${t}</text></svg>`,
+};
+// perceived lightness of the tile, so the glyph flips to light ink on dark clay
+function isDark(hex){
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
+  return (0.299*r + 0.587*g + 0.114*b) < 125;
+}
+function tile([name, tint, kind, txt]){
+  const g = kind === 'mono'   ? `<span class="mono">${txt}</span>`
+          : kind === 'shield' ? GLYPH.shield(txt)
+          : (GLYPH[kind] || '');
+  return `<div class="logo-tile${isDark(tint)?' on-dark':''}" style="--tint:${tint}" title="${name}">${g}<span class="nm">${name}</span></div>`;
+}
+
+function render(key){
+  if (key === 'robot'){ renderChat(); return; }
+  const p = PLACES[key];
+  const i = ORDER.indexOf(key);
+  const prev = ORDER[(i-1+ORDER.length)%ORDER.length];
+  const next = ORDER[(i+1)%ORDER.length];
+  panelCard.innerHTML = `
+    <img class="panel-art${p.fit ? ' fit':''}" src="${p.art}" alt="">
+    <div class="counter">${p.n} / ${TOTAL}</div>
+    <div class="kicker">${p.kicker}</div>
+    <p class="promise">${p.promise}</p>
+    <p class="body-copy">${p.body}</p>
+    ${p.ctas ? `<div class="cta-row">${p.ctas.map(c=>`<a class="btn ${c.primary?'btn-primary':'btn-ghost'}" href="${c.href}" ${c.href.startsWith('http')?'target="_blank" rel="noopener"':''}>${c.label}</a>`).join('')}</div>`:''}
+    ${p.tiles ? p.tiles.map(([t,items])=>`<div class="stack-group"><h4>${t}</h4><div class="logo-grid">${items.map(tile).join('')}</div></div>`).join('') : ''}
+    ${p.chips ? `<div class="chips">${p.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>` : ''}
+    <div class="panel-nav">
+      <button data-open="${prev}">← ${PLACES[prev].kicker.split(' — ')[0]}</button>
+      <button data-open="${next}">${PLACES[next].kicker.split(' — ')[0]} →</button>
+    </div>`;
+}
+
+function openPlace(key){
+  render(key);
+  current = key;
+  const pos = SPOT_POS[key];
+  if (pos && !reduceMotion && !isNarrow()){
+    wrap.style.transformOrigin = `${pos.x}% ${pos.y}%`;
+    // zoom toward the building, nudged left so the right-side panel doesn't cover it
+    wrap.style.transform = `translateX(-8%) scale(2.05)`;
+  } else if (pos){
+    wrap.style.transformOrigin = `${pos.x}% ${pos.y}%`;
+    wrap.style.transform = reduceMotion ? 'none' : 'scale(1.6)';
+  }
+  document.body.classList.add('zoomed');
+  closeBtn.hidden = false;
+  panelCard.scrollTop = 0;
+  if (key === 'robot') focusChatInput();
+}
+
+function closePlace(){
+  current = null;
+  wrap.style.transform = 'none';
+  document.body.classList.remove('zoomed');
+  closeBtn.hidden = true;
+}
+
+document.addEventListener('click', e=>{
+  const t = e.target.closest('[data-open]');
+  if (t){ openPlace(t.dataset.open); }
+});
+closeBtn.addEventListener('click', closePlace);
+veil.addEventListener('click', closePlace);
+document.addEventListener('keydown', e=>{ if (e.key === 'Escape' && current) closePlace(); });
+
+/* ============================================================
+   The robot: a small on-page assistant.
+   Everything it knows lives in KB — no network, no API key.
+   ============================================================ */
+const KB = [
+  { id:'name', w:['your name','whats your name','what is your name','who named you','what are you called','call you','robot name'],
+    a:`I'm called <strong>abass.</strong> — same as the site, period and all. Abass built me, dropped me on this island, and gave me everything in his portfolio to remember.<br><br>Ask me about the projects, the stack, Trustcode System, or how to reach him.` },
+  { id:'who', w:['who are you','who is abass','about abass','yourself','introduce','bio','background','who'],
+    a:`I'm <strong>abass.</strong> — the little robot who keeps this island, named after the site itself. I answer questions about the developer behind it.<br><br><strong>Abass Ibrahim</strong> is a self-taught full-stack developer based in <strong>Lagos, Nigeria</strong>, with 3+ years building production web apps across e-commerce, education, fintech and marketplaces. He's shipped <strong>five live products</strong>, co-founded the engineering firm <strong>Trustcode System</strong>, and runs a 500+ member crypto trading community. By day he also keeps business systems running as an IT officer for two oil &amp; gas companies.` },
+  { id:'projects', w:['projects','portfolio','what have you built','what has he built','products','work','apps','built','shipped','showcase'],
+    a:`Five live products, all in production:<br><br><strong>1. <a href="https://thethesisdesk.xyz/" target="_blank" rel="noopener">The Thesis Desk</a></strong> — real-time crypto trading command center.<br><strong>2. <a href="https://helpingtribeacademy.com/" target="_blank" rel="noopener">Helping Tribe Academy</a></strong> — multi-role school management platform.<br><strong>3. <a href="https://wearables-atelier.vercel.app/" target="_blank" rel="noopener">Wearables Atelier</a></strong> — luxury womenswear e-commerce.<br><strong>4. <a href="https://9thluxe-store-two.vercel.app/" target="_blank" rel="noopener">Fàdè (9thluxe)</a></strong> — luxury perfume storefront.<br><strong>5. <a href="https://aureeo.netlify.app/" target="_blank" rel="noopener">Aureo</a></strong> — trust-first hiring marketplace.<br><br>Ask me about any one of them.` },
+  { id:'thesis', w:['thesis desk','trading platform','trading desk','crypto app','ghost trading','trading command'],
+    a:`<strong>The Thesis Desk</strong> is a full-stack crypto trading command center built for the 500+ member community Abass founded. Live price feeds for BTC, ETH, SOL, BNB and XRP, P&amp;L tracking, signal review, daily journaling with streak accountability, weekly discipline scoring, and a calculator suite — plus role-based admin access and a focused "Today's Trade Plan" workflow.<br><br>Next.js · TypeScript · Tailwind · real-time data. <a href="https://thethesisdesk.xyz/" target="_blank" rel="noopener">thethesisdesk.xyz</a>` },
+  { id:'helping', w:['helping tribe','school platform','academy','education platform','school management','edtech'],
+    a:`<strong>Helping Tribe Academy</strong> is a complete school management system for a Counselling &amp; Positive Psychology program. Three role-based portals — Student, Facilitator and Admin — with separate matric-number and email authentication flows, a public application form, and distinct UX paths and access controls per role.<br><br>Next.js · TypeScript · Tailwind · multi-role auth. <a href="https://helpingtribeacademy.com/" target="_blank" rel="noopener">helpingtribeacademy.com</a>` },
+  { id:'wearables', w:['wearables','atelier','womenswear','fashion','aso oke','iro','kaftan','clothing'],
+    a:`<strong>Wearables Atelier</strong> is an editorial e-commerce platform for a Nigerian luxury womenswear brand — Iro &amp; Buba, Aso Oke, Kaftan, Boubou, Turbans and Jewellery. Multi-category navigation, ready-to-wear and custom-order flows, wholesale support, and a "Now Trending" module with live pricing. Mobile-first with a magazine-grade design language.<br><br><a href="https://wearables-atelier.vercel.app/" target="_blank" rel="noopener">See it live</a>` },
+  { id:'fade', w:['fade','9thluxe','perfume','fragrance','luxe'],
+    a:`<strong>Fàdè (9thluxe)</strong> is a mobile-first luxury perfume storefront — curated collections, drops, an editorial journal, persistent cart, wishlist, and full dark/light mode. Designed for a slow-luxury feel with clean typography and a calm interaction model.<br><br>Next.js · TypeScript · Tailwind · Shadcn UI. <a href="https://9thluxe-store-two.vercel.app/" target="_blank" rel="noopener">See it live</a>` },
+  { id:'aureo', w:['aureo','marketplace','hiring platform','trust score','jobs'],
+    a:`<strong>Aureo</strong> is a trust-first hiring marketplace. Candidates build verified profiles with trust scores and skill listings; employers post transparent opportunities. Built around the principle that hiring should reward proof and clear communication.<br><br>Next.js · TypeScript · Tailwind. <a href="https://aureeo.netlify.app/" target="_blank" rel="noopener">See it live</a>` },
+  { id:'stack', w:['stack','tech','technologies','tools','languages','framework','frontend','backend','database','what do you use','skills'],
+    a:`The full toolkit:<br><br><strong>Languages</strong> — JavaScript, TypeScript, HTML5, CSS3, Python (basics)<br><strong>Frontend</strong> — React, Next.js, React Query, Tailwind, Shadcn UI<br><strong>Backend</strong> — Node.js, Express, REST APIs<br><strong>Databases</strong> — PostgreSQL, Prisma, MongoDB, Supabase, Firebase<br><strong>DevOps</strong> — Git, GitHub, Vercel, Netlify, Agile<br><strong>Web3 &amp; automation</strong> — Web3 development, bots, trading systems, AI agents, RAG<br><strong>IT support</strong> — networking, troubleshooting, access management<br><br>The block tower on the left of the island opens the full list.` },
+  { id:'trustcode', w:['trustcode','trust code','company','organization','organisation','firm','agency','co-founder','cofounder','team'],
+    a:`<strong>Trustcode System</strong> is the product engineering firm Abass co-founded — "software you can stake your business on."<br><br>He's the <strong>Full-Stack Delivery &amp; Design Lead</strong>, working with a frontend lead in the UK, a cloud/backend lead, and an ISC2-certified SOC analyst on security. Offices in <strong>Lagos and London</strong>, remote worldwide, <strong>15+ live products</strong> across fintech, edtech, e-commerce, HR tech, Web3 and cybersecurity.<br><br>Seven service lines: product &amp; web engineering, e-commerce, cloud &amp; DevOps on AWS, AI integration &amp; automation, cybersecurity &amp; SOC, managed IT support, and technical training.<br><br><a href="https://trustcodesystem.tech/" target="_blank" rel="noopener">trustcodesystem.tech</a>` },
+  { id:'experience', w:['experience','job','career','employment','work history','currently','where does he work','it officer','oil','gas','metropole','bono'],
+    a:`Three concurrent tracks:<br><br><strong>IT Officer — Metropole Petroleum</strong> (2024–present, Lagos). Day-to-day IT operations, hardware/network/software troubleshooting, user accounts and access controls for business-critical systems.<br><br><strong>IT Assistant — Bono Energy Group</strong> (2024–present, concurrent). Infrastructure, end-user devices, diagnostics and maintenance.<br><br><strong>Independent Web Developer</strong> (2022–present). Designed, built and shipped five production apps; full-stack across React/Next.js/TypeScript with PostgreSQL, Prisma, MongoDB, Supabase and Firebase.<br><br>Plus co-founding Trustcode System and running a 500+ member trading community since 2021.` },
+  { id:'community', w:['community','trading community','crypto','teach','educator','mentor','students','500'],
+    a:`Abass founded and grew a <strong>500+ member online community</strong> focused on cryptocurrency trading, Web3 fundamentals and risk management — running since 2021.<br><br>He designs and delivers structured trading curricula, ongoing mentorship programmes and educational content, translating complex Web3 concepts into beginner-friendly material. The Thesis Desk was built specifically to serve that community.` },
+  { id:'education', w:['education','degree','university','school','study','studied','unilorin','graduate','cs degree','computer science'],
+    a:`<strong>B.Sc. Educational Management</strong>, University of Ilorin (UNILORIN), Kwara State — Oct 2019 to Aug 2024.<br><br>He's upfront about this: he chose that degree at 18, before discovering software development. Over the last four years he re-trained as a developer — five production apps shipped and <strong>600+ commits</strong> to his own projects in the last year alone. As he puts it, the portfolio reflects his real capability more accurately than the undergraduate transcript.` },
+  { id:'ai', w:['ai','agents','automation','claude','rag','llm','robot','how do you work','bots'],
+    a:`Abass builds alongside AI agents — research, drafting, code and checks. <strong>RAG pipelines, automation bots and agentic tools</strong> that let one developer operate like a small studio. The robots handle repetition; he handles judgment.<br><br>I'm a small example: I run entirely inside this page with no server behind me.` },
+  { id:'writing', w:['writing','blog','articles','hashnode','medium','write','posts'],
+    a:`He publishes technical writing documenting patterns and lessons from real builds:<br><br><a href="https://hashnode.com/@ghost69" target="_blank" rel="noopener">Hashnode — @ghost69</a><br><a href="https://medium.com/@Ghost69" target="_blank" rel="noopener">Medium — @Ghost69</a>` },
+  { id:'contact', w:['contact','email','hire','reach','get in touch','available','availability','remote','work with','freelance','rate','talk'],
+    a:`He's <strong>open to remote roles and collaborations worldwide</strong>.<br><br><strong>Email</strong> — <a href="mailto:abassibrahim591@gmail.com">abassibrahim591@gmail.com</a><br><strong>GitHub</strong> — <a href="https://github.com/Lingz450" target="_blank" rel="noopener">github.com/Lingz450</a><br><strong>LinkedIn</strong> — <a href="https://www.linkedin.com/in/abass-ibrahim-devv" target="_blank" rel="noopener">abass-ibrahim-devv</a><br><strong>CV / classic portfolio</strong> — <a href="/classic">the text version of this site</a>` },
+  { id:'location', w:['where','location','based','city','lagos','nigeria','timezone','country'],
+    a:`Based in <strong>Lagos, Nigeria</strong> (WAT, UTC+1) — and open to remote roles globally. Trustcode System, which he co-founded, operates out of Lagos and London.` },
+  { id:'why', w:['why hire','why should','strengths','good at','best','stand out','different','value'],
+    a:`Three honest reasons:<br><br><strong>He finishes.</strong> Five products, all live and in daily use — not prototypes.<br><strong>He learned by shipping.</strong> No CS degree; 600+ commits last year and a real production track record instead.<br><strong>He works across the whole line.</strong> Design, frontend, backend, database, deploy, and the IT operations discipline to keep it running afterwards.` },
+  { id:'island', w:['island','site','this page','built this','how was this made','claymation','clay','design'],
+    a:`This island is a single HTML page — the claymation scenes were generated with AI image models, and everything else is hand-written CSS and JavaScript: the drifting clouds, chimney smoke, the lighthouse beam, night mode with its lanterns and fireflies, and the ambient sound (synthesized live in your browser, no audio files).<br><br>Click any building to explore, or the 🌙 to see the island at night.` },
+  { id:'hello', w:['hi','hello','hey','yo','good morning','good evening','sup','greetings'],
+    a:`Hello! I'm <strong>abass.</strong> — the robot on this island. Ask me anything about Abass's work: projects, tech stack, Trustcode System, experience, or how to reach him.` },
+  { id:'thanks', w:['thanks','thank you','cheers','appreciate','nice','cool','awesome','great'],
+    a:`Anytime. If you want the fastest path: the Workshop has the projects, the block tower has the stack, and the Plaza has his email.` },
+];
+
+const SUGGESTIONS = [
+  'What has he built?',
+  'What is Trustcode System?',
+  'What tech stack does he use?',
+  'What is his experience?',
+  'How do I hire him?',
+];
+
+let chatLog = [{ from:'bot', text:`Hi — I'm <strong>abass.</strong>, the robot who keeps this island 👋<br><br>I know everything in this portfolio: the projects, the stack, Trustcode System, the experience behind it and how to get in touch. What would you like to know?` }];
+
+function answer(q){
+  const s = ' ' + q.toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ') + ' ';
+  let best = null, bestScore = 0;
+  for (const e of KB){
+    let score = 0;
+    for (const k of e.w){
+      // whole-word match, tolerant of a trailing plural on either side
+      const forms = [k];
+      if (!k.includes(' ')) forms.push(k.endsWith('s') ? k.slice(0,-1) : k + 's');
+      if (forms.some(f => s.includes(' ' + f + ' '))) score += k.includes(' ') ? 3.5 : 1.6;
+      else if (k.length > 5 && s.includes(k.slice(0, Math.max(5, k.length - 2)))) score += .7;
+    }
+    if (score > bestScore){ bestScore = score; best = e; }
+  }
+  if (best && bestScore >= 1.5) return best.a;
+  return `I'm not sure I have that one — I only know what's in Abass's portfolio. Try asking about his <strong>projects</strong>, <strong>tech stack</strong>, <strong>Trustcode System</strong>, <strong>experience</strong>, <strong>education</strong>, or <strong>how to reach him</strong>.<br><br>Or email him directly: <a href="mailto:abassibrahim591@gmail.com">abassibrahim591@gmail.com</a>`;
+}
+
+function renderChat(){
+  panelCard.innerHTML = `
+    <div class="chat-head">
+      <div class="chat-avatar">a<span style="color:#FFD9A8">.</span></div>
+      <div>
+        <div class="chat-title">abass<span style="color:var(--terra)">.</span></div>
+        <div class="chat-sub">Island guide · knows this whole portfolio</div>
+      </div>
+    </div>
+    <div class="chat-log" id="chatLogEl">
+      ${chatLog.map(m=>`<div class="msg ${m.from === 'bot' ? 'bot':'me'}">${m.text}</div>`).join('')}
+    </div>
+    <div class="chat-sugs">${SUGGESTIONS.map(s=>`<button class="sug" type="button">${s}</button>`).join('')}</div>
+    <form class="chat-form" id="chatForm" autocomplete="off">
+      <input id="chatInput" type="text" placeholder="Ask about projects, stack, Trustcode…" aria-label="Ask a question">
+      <button type="submit" aria-label="Send">↑</button>
+    </form>`;
+
+  const logEl = panelCard.querySelector('#chatLogEl');
+  const form  = panelCard.querySelector('#chatForm');
+  const input = panelCard.querySelector('#chatInput');
+  logEl.scrollTop = logEl.scrollHeight;
+
+  function ask(q){
+    q = q.trim();
+    if (!q) return;
+    chatLog.push({ from:'me', text: q.replace(/[<>]/g,'') });
+    logEl.insertAdjacentHTML('beforeend', `<div class="msg me">${q.replace(/[<>]/g,'')}</div>`);
+    logEl.insertAdjacentHTML('beforeend', `<div class="msg bot typing" id="typing"><i></i><i></i><i></i></div>`);
+    logEl.scrollTop = logEl.scrollHeight;
+    input.value = '';
+    setTimeout(()=>{
+      const a = answer(q);
+      chatLog.push({ from:'bot', text:a });
+      const t = logEl.querySelector('#typing');
+      if (t){ t.classList.remove('typing'); t.removeAttribute('id'); t.innerHTML = a; }
+      logEl.scrollTop = logEl.scrollHeight;
+    }, 420 + Math.random()*320);
+  }
+
+  form.addEventListener('submit', e=>{ e.preventDefault(); ask(input.value); });
+  panelCard.querySelectorAll('.sug').forEach(b=>b.addEventListener('click', ()=>ask(b.textContent)));
+}
+
+function focusChatInput(){
+  setTimeout(()=>panelCard.querySelector('#chatInput')?.focus({preventScroll:true}), 700);
+}
+
+/* ---------- dust ---------- */
+if (!reduceMotion){
+  const dust = document.getElementById('dust');
+  for (let i = 0; i < 12; i++){
+    const d = document.createElement('span');
+    d.className = 'dust';
+    const size = 2 + Math.random()*3.5;
+    d.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${60+Math.random()*40}%;--dur:${16+Math.random()*18}s;--delay:-${Math.random()*20}s;--dx:${(Math.random()-.5)*120}px;--op:${.12+Math.random()*.22};`;
+    dust.appendChild(d);
+  }
+}
+
+/* ---------- entry signboard ---------- */
+const gate = document.getElementById('gate');
+const enterBtn = document.getElementById('enterBtn');
+function enterIsland(){
+  if (document.body.classList.contains('entered')) return;
+  document.body.classList.add('entered');
+  setTimeout(()=>{ gate.setAttribute('aria-hidden','true'); }, 900);
+}
+enterBtn.addEventListener('click', enterIsland);
+gate.addEventListener('click', e=>{ if (e.target === gate) enterIsland(); });
+document.addEventListener('keydown', e=>{
+  if (!document.body.classList.contains('entered') && (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape')){
+    e.preventDefault(); enterIsland();
+  }
+});
+
+/* ---------- stars & fireflies ---------- */
+const sky = document.getElementById('sky');
+for (let i = 0; i < 48; i++){
+  const s = document.createElement('i');
+  s.className = 'star';
+  const sz = 1 + Math.random()*1.6;
+  s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*46}%;--td:${2.4+Math.random()*3.6}s;--tdel:-${Math.random()*4}s;`;
+  sky.appendChild(s);
+}
+const ff = document.getElementById('fireflies');
+for (let i = 0; i < 9; i++){
+  const f = document.createElement('i');
+  f.className = 'firefly';
+  f.style.cssText = `left:${28+Math.random()*46}%;top:${42+Math.random()*30}%;--fd:${3+Math.random()*4}s;--fdel:-${Math.random()*6}s;--fx:${(Math.random()-.5)*30}px;--fy:${(Math.random()-.5)*22}px;`;
+  ff.appendChild(f);
+}
+
+/* ---------- night mode ---------- */
+let amb = null, soundOn = false;
+const themeBtn = document.getElementById('themeBtn');
+function setNight(on, save){
+  document.body.classList.toggle('night', on);
+  themeBtn.textContent = on ? '☀️' : '🌙';
+  themeBtn.setAttribute('aria-label', on ? 'Switch to day' : 'Switch to night');
+  if (save) localStorage.setItem('abass-island-theme', on ? 'night' : 'day');
+  if (amb) amb.setNight(on);
+}
+/* NOTE: key is deliberately distinct from the Next app's next-themes
+   storageKey ("abass-theme") used on /classic — sharing it made each
+   side write a value the other could not parse. */
+const savedTheme = localStorage.getItem('abass-island-theme');
+const hour = new Date().getHours();
+setNight(savedTheme ? savedTheme === 'night' : (hour >= 19 || hour < 6));
+themeBtn.addEventListener('click', () =>
+  setNight(!document.body.classList.contains('night'), true));
+
+/* ---------- ambient sound: procedural breeze + night crickets ---------- */
+const soundBtn = document.getElementById('soundBtn');
+function buildAmbience(){
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+  // breeze: looped brown noise through a lowpass, slowly swelling
+  const len = 2 * ctx.sampleRate;
+  const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = buf.getChannelData(0);
+  let last = 0;
+  for (let i = 0; i < len; i++){ const w = Math.random()*2-1; last = (last + .02*w) / 1.02; d[i] = last * 3.5; }
+  const noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+  const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 360;
+  const breeze = ctx.createGain(); breeze.gain.value = .05;
+  noise.connect(lp); lp.connect(breeze); breeze.connect(master);
+  const lfo = ctx.createOscillator(); lfo.frequency.value = .06;
+  const lfoG = ctx.createGain(); lfoG.gain.value = .025;
+  lfo.connect(lfoG); lfoG.connect(breeze.gain);
+  noise.start(); lfo.start();
+  // crickets: a high sine pulsed in chirp groups, only audible at night
+  const cg = ctx.createGain(); cg.gain.value = 0; cg.connect(master);
+  const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = 4300;
+  const env = ctx.createGain(); env.gain.value = 0;
+  osc.connect(env); env.connect(cg); osc.start();
+  function chirpGroup(){
+    const t = ctx.currentTime;
+    const pulses = 3 + Math.floor(Math.random()*2);
+    for (let p = 0; p < pulses; p++){
+      const s = t + p * .09;
+      env.gain.setValueAtTime(0, s);
+      env.gain.linearRampToValueAtTime(.13, s + .02);
+      env.gain.linearRampToValueAtTime(0, s + .07);
+    }
+    setTimeout(chirpGroup, pulses*90 + 500 + Math.random()*1400);
+  }
+  chirpGroup();
+  return {
+    ctx, master,
+    setNight(n){ cg.gain.linearRampToValueAtTime(n ? 1 : 0, ctx.currentTime + 1.5); },
+  };
+}
+soundBtn.addEventListener('click', () => {
+  soundOn = !soundOn;
+  soundBtn.textContent = soundOn ? '🔊' : '🔈';
+  soundBtn.setAttribute('aria-label', soundOn ? 'Mute ambient sound' : 'Enable ambient sound');
+  if (soundOn){
+    if (!amb){ amb = buildAmbience(); amb.setNight(document.body.classList.contains('night')); }
+    amb.ctx.resume();
+    amb.master.gain.linearRampToValueAtTime(1, amb.ctx.currentTime + 1);
+  } else if (amb){
+    amb.master.gain.linearRampToValueAtTime(0, amb.ctx.currentTime + .6);
+  }
+});
+</script>
+</body>
+</html>
