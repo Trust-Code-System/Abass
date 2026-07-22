@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>abass. — full-stack developer, Lagos → worldwide</title>
-<meta name="description" content="Abass Ibrahim — self-taught full-stack developer. Explore the island: five live products, a 500-member community, AI agents, and a hello waiting at the trophy.">
+<title>Abass Ibrahim — full-stack developer &amp; systems builder</title>
+<meta name="description" content="Explore Abass Island: the work, systems thinking, technical craft, AI-assisted workflows, and real-world experience of Lagos-based full-stack developer Abass Ibrahim.">
 <link rel="canonical" href="https://abassibrahim.xyz/">
 <!-- This page is served statically from /public, so it does not inherit
      the Next app's metadata from app/layout.tsx — tags are set here. -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://abassibrahim.xyz/">
-<meta property="og:title" content="abass. — full-stack developer, Lagos → worldwide">
-<meta property="og:description" content="An island you can explore. Five live products, a 500-member community, AI agents — and a hello waiting at the trophy.">
+<meta property="og:title" content="Abass Ibrahim — full-stack developer &amp; systems builder">
+<meta property="og:description" content="A small interactive island for exploring Abass Ibrahim's products, technical craft, experience, and way of working.">
 <meta property="og:image" content="https://abassibrahim.xyz/images/abass.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="abass. — full-stack developer, Lagos → worldwide">
-<meta name="twitter:description" content="An island you can explore. Five live products, a 500-member community, AI agents — and a hello waiting at the trophy.">
+<meta name="twitter:title" content="Abass Ibrahim — full-stack developer &amp; systems builder">
+<meta name="twitter:description" content="A small interactive island for exploring Abass Ibrahim's products, technical craft, experience, and way of working.">
 <meta name="twitter:image" content="https://abassibrahim.xyz/images/abass.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏝️</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,23 +79,27 @@
   body.zoomed .island-float{animation-play-state:paused}
 
   /* ---------- hotspots ---------- */
-  /* invisible until you point at them — the buildings are the interface */
+  /* Every interactive building owns its full visual footprint. */
   .spot{
     position:absolute;z-index:20;
-    width:82px;height:82px;margin:-41px 0 0 -41px;
+    width:var(--w,82px);height:var(--h,82px);
+    transform:translate(-50%,-50%);
     background:none;border:none;cursor:pointer;padding:0;
-    transition:opacity .4s;
+    transition:opacity .4s,filter .25s;
+    touch-action:manipulation;
   }
   body.zoomed .spot{opacity:0;pointer-events:none}
   .spot .ring{
-    position:absolute;inset:6px;border-radius:50%;
-    background:radial-gradient(closest-side,rgba(232,92,65,.20),rgba(232,92,65,.07) 62%,transparent);
+    position:absolute;inset:3%;border-radius:34%;
+    background:radial-gradient(closest-side,rgba(232,92,65,.22),rgba(232,92,65,.08) 60%,transparent 78%);
     opacity:0;transform:scale(.72);
     transition:opacity .3s,transform .35s cubic-bezier(.22,.9,.3,1);
   }
+  .spot:hover{filter:drop-shadow(0 10px 14px rgba(232,92,65,.16))}
+  .spot:focus-visible{filter:drop-shadow(0 10px 14px rgba(232,92,65,.16));outline:2px solid var(--terra);outline-offset:4px}
   .spot:hover .ring,.spot:focus-visible .ring{opacity:1;transform:scale(1)}
   .spot .tag{
-    position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%) translateY(4px);
+    position:absolute;left:50%;top:-6px;transform:translate(-50%,-100%) translateY(4px);
     background:var(--char);color:var(--cream);
     font-size:.7rem;font-weight:500;letter-spacing:.08em;white-space:nowrap;
     padding:.38rem .8rem;border-radius:99px;
@@ -132,7 +136,7 @@
   /* ---------- panel ---------- */
   .veil{
     position:fixed;inset:0;z-index:40;
-    background:rgba(247,244,239,.25);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+    background:rgba(247,244,239,.12);
     opacity:0;pointer-events:none;transition:opacity .6s;
   }
   body.zoomed .veil{opacity:1;pointer-events:auto}
@@ -286,42 +290,44 @@
 
   /* ---------- 3D logo tiles ---------- */
   .logo-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));
-    gap:.55rem;margin-top:.6rem;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));
+    gap:.7rem;margin-top:.7rem;perspective:700px;
   }
   .logo-tile{
-    position:relative;aspect-ratio:1;border-radius:17px;
+    position:relative;min-height:92px;border-radius:18px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.28rem;
     background:
-      linear-gradient(163deg,rgba(255,255,255,.5),rgba(255,255,255,0) 46%),
-      linear-gradient(163deg,var(--tint) 0%,color-mix(in srgb,var(--tint) 72%,#8a6a55) 100%);
+      linear-gradient(155deg,rgba(255,255,255,.92),rgba(255,255,255,.18) 43%),
+      linear-gradient(160deg,#F3EEE7 0%,#D8CEC1 100%);
     box-shadow:
-      inset 0 2px 0 rgba(255,255,255,.5),
-      inset 0 -4px 8px rgba(90,60,45,.22),
-      0 7px 14px -7px rgba(57,53,47,.5);
-    --ink:color-mix(in srgb,var(--tint) 26%,#2A2320);
-    transform:rotateX(13deg);
+      inset 0 2px 0 rgba(255,255,255,.9),
+      inset 0 -7px 10px rgba(90,60,45,.18),
+      0 9px 0 #B8AA9A,
+      0 15px 22px -10px rgba(57,53,47,.42);
+    transform:rotateX(9deg) translateY(-3px);
     transition:transform .38s var(--zoom-ease),box-shadow .38s;
+    overflow:hidden;
   }
+  .logo-tile::after{content:"";position:absolute;inset:auto 15% 0;height:3px;border-radius:99px;background:var(--brand,#8F877D);opacity:.9}
   .logo-tile:hover{
-    transform:rotateX(0deg) translateY(-5px) scale(1.05);
+    transform:rotateX(0deg) translateY(-8px) scale(1.045);
     box-shadow:
-      inset 0 2px 0 rgba(255,255,255,.55),
-      inset 0 -4px 8px rgba(90,60,45,.2),
-      0 16px 26px -12px rgba(57,53,47,.55);
+      inset 0 2px 0 rgba(255,255,255,.95),
+      inset 0 -7px 10px rgba(90,60,45,.16),
+      0 7px 0 #B8AA9A,
+      0 20px 28px -12px rgba(57,53,47,.5);
   }
-  .logo-tile svg{width:44%;height:44%;color:var(--ink);display:block}
+  .logo-tile .brand-logo{width:42%;height:42%;object-fit:contain;display:block;filter:drop-shadow(0 2px 1px rgba(57,53,47,.14))}
   .logo-tile .mono{
     font-family:'Sora',sans-serif;font-weight:600;font-size:.92rem;letter-spacing:-.02em;
-    color:var(--ink);line-height:1;
+    color:var(--char);line-height:1;
   }
   .logo-tile .nm{
-    font-size:.5rem;letter-spacing:.03em;font-weight:500;text-align:center;
-    color:rgba(41,34,28,.66);padding:0 .2rem;line-height:1.15;
+    font-size:.52rem;letter-spacing:.025em;font-weight:600;text-align:center;
+    color:rgba(41,34,28,.7);padding:0 .25rem;line-height:1.15;
   }
-  .logo-tile.on-dark{--ink:rgba(255,255,255,.93)}
-  .logo-tile.on-dark .nm{color:rgba(255,255,255,.75)}
-  body.night .logo-tile .nm{color:rgba(255,255,255,.62)}
+  body.night .logo-tile{background:linear-gradient(155deg,#F1ECE4,#CFC4B6);box-shadow:inset 0 2px 0 rgba(255,255,255,.8),inset 0 -7px 10px rgba(20,18,20,.2),0 9px 0 #9F9385,0 15px 22px -10px rgba(0,0,0,.55)}
+  body.night .logo-tile .nm{color:rgba(41,34,28,.72)}
   @media (prefers-reduced-motion:reduce){
     .logo-tile{transform:none;transition:none}
     .logo-tile:hover{transform:translateY(-3px)}
@@ -333,8 +339,9 @@
     width:42px;height:42px;border-radius:50%;flex:0 0 auto;
     background:radial-gradient(circle at 38% 34%,#7C99B5,#4E6E8E);
     display:flex;align-items:center;justify-content:center;font-size:1.15rem;
-    box-shadow:0 6px 16px -6px rgba(57,53,47,.5);
+    box-shadow:0 6px 16px -6px rgba(57,53,47,.5);overflow:hidden;
   }
+  .chat-avatar img{width:92%;height:92%;object-fit:contain;object-position:center 22%}
   .chat-title{font-weight:500;font-size:.95rem;letter-spacing:-.01em}
   .chat-sub{font-size:.72rem;color:var(--char-soft);margin-top:.1rem}
   .chat-log{
@@ -385,6 +392,38 @@
   }
   .stack-group .chips{margin-top:0}
   body.night .stack-group h4{color:#9A9488}
+
+  /* ---------- walking island guide ---------- */
+  .guide{
+    position:absolute;z-index:24;left:42%;top:37%;width:clamp(76px,10.5%,150px);
+    transform:translate(-50%,-50%);cursor:pointer;pointer-events:auto;
+    background:none;border:none;padding:0;
+    animation:guidePatrol 3.2s ease-in-out infinite;
+    transform-origin:50% 100%;filter:drop-shadow(0 8px 7px rgba(76,62,48,.24));
+    transition:opacity .35s;
+  }
+  body.zoomed .guide{opacity:0;pointer-events:none}
+  .guide img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none}
+  @keyframes guidePatrol{
+    0%,100%{transform:translate(-50%,-50%) translateX(-5px) rotate(-1deg)}
+    25%{transform:translate(-50%,-50%) translate(3px,-5px) rotate(1.2deg)}
+    50%{transform:translate(-50%,-50%) translateX(7px) rotate(-.5deg)}
+    75%{transform:translate(-50%,-50%) translate(-1px,-4px) rotate(-1.2deg)}
+  }
+  .guide.greeting{animation:guideHello .75s cubic-bezier(.2,.9,.25,1) both}
+  @keyframes guideHello{0%{transform:translate(-50%,-50%) scale(.92) rotate(-2deg)}55%{transform:translate(-50%,-50%) scale(1.08) rotate(2deg)}100%{transform:translate(-50%,-50%) scale(1)}}
+  .guide-bubble{
+    position:absolute;z-index:21;left:calc(50% + 30px);bottom:88%;width:max-content;max-width:min(270px,70vw);
+    padding:.7rem .9rem;border-radius:16px 16px 16px 5px;
+    background:rgba(252,250,246,.95);border:1px solid rgba(57,53,47,.1);
+    color:var(--char);font-size:clamp(.63rem,.95vw,.75rem);font-weight:400;line-height:1.45;
+    box-shadow:0 14px 30px -16px rgba(57,53,47,.5);
+    opacity:0;transform:translateY(8px) scale(.96);pointer-events:none;
+    transition:opacity .35s,transform .35s;
+  }
+  .guide.greeting .guide-bubble{opacity:1;transform:none}
+  .guide-bubble strong{font-weight:600;color:var(--terra)}
+  body.night .guide-bubble{background:rgba(45,42,50,.95);border-color:rgba(255,255,255,.1);color:#EDE8DF}
 
   /* ---------- theme toggle buttons ---------- */
   .icon-btn{
@@ -528,25 +567,30 @@
   body.night footer,body.night footer a{color:#8F897D}
   body.night footer a:hover{color:var(--terra)}
   body.night .fx-vignette{background:radial-gradient(ellipse 110% 100% at 50% 45%,transparent 55%,rgba(0,0,0,.35))}
-  body.night .veil{background:rgba(20,19,24,.35)}
+  body.night .veil{background:rgba(20,19,24,.2)}
   body.night .spot .ring{background:radial-gradient(closest-side,rgba(255,190,110,.26),rgba(255,190,110,.08) 62%,transparent)}
   body.night .fx-grain{opacity:.07}
   body.night #dust{display:none}
 
   /* ---------- mobile ---------- */
   @media (max-width:720px){
-    .spot{width:64px;height:64px;margin:-32px 0 0 -32px}
+    .spot{min-width:56px;min-height:56px}
     .island-wrap{width:132vw;margin-top:0}
     .legend{max-width:94vw;border-radius:20px}
     .panel{width:100vw;padding:.6rem}
     .panel-card{max-height:84svh}
     .panel-close{top:auto;bottom:1.1rem;right:1.1rem}
+    .guide{width:12.5%}
+    .guide-bubble{left:50%;bottom:96%;transform:translate(-50%,8px) scale(.96)}
+    .guide.greeting .guide-bubble{transform:translateX(-50%)}
   }
   @media (prefers-reduced-motion:reduce){
     .island-float,.fx-grain,.dust{animation:none}
     .ambient *,.star,.firefly{animation:none!important}
     .beam{rotate:14deg;opacity:.5}
     .island-wrap,.panel{transition:none}
+    .guide{animation:none}
+    .guide.greeting{animation:none}
   }
 </style>
 </head>
@@ -556,8 +600,8 @@
   <a class="wordmark" href="/">abass<span>.</span></a>
   <div class="nav-right">
     <button class="nav-link" data-open="work">Work</button>
-    <button class="nav-link" data-open="craft">Craft</button>
-    <button class="nav-link" data-open="agents">Agents</button>
+    <button class="nav-link" data-open="career">Experience</button>
+    <button class="nav-link" data-open="stack">Stack</button>
     <button class="nav-link" data-open="close">Contact</button>
     <a class="nav-link" href="/classic">Classic</a>
     <button class="icon-btn" id="soundBtn" aria-label="Toggle ambient sound">🔈</button>
@@ -602,15 +646,21 @@
       <div class="sparkle" style="left:46.3%;top:49%"></div>
       <div class="fireflies night-only" id="fireflies"></div>
     </div>
-    <!-- hotspots: % positions on the island image -->
-    <button class="spot" style="left:21.8%;top:27%" data-open="hello" aria-label="The Lighthouse — hello"><span class="ring"></span><span class="tag">The Lighthouse · hello</span></button>
-    <button class="spot" style="left:33.5%;top:36%" data-open="work" aria-label="The Workshop — projects"><span class="ring"></span><span class="tag">The Workshop · projects</span></button>
-    <button class="spot" style="left:42%;top:37%" data-open="robot" aria-label="Ask abass, the island guide"><span class="ring"></span><span class="tag">Ask abass. ✦</span></button>
-    <button class="spot" style="left:52.5%;top:32.5%" data-open="craft" aria-label="The Greenhouse — craft"><span class="ring"></span><span class="tag">The Greenhouse · craft</span></button>
-    <button class="spot" style="left:69.3%;top:30%" data-open="agents" aria-label="The Studio — AI agents"><span class="ring"></span><span class="tag">The Studio · AI agents</span></button>
-    <button class="spot" style="left:50%;top:50%" data-open="close" aria-label="The Plaza — say hello"><span class="ring"></span><span class="tag">The Plaza · say hello</span></button>
-    <button class="spot" style="left:66%;top:61.5%" data-open="trustcode" aria-label="Trustcode System"><span class="ring"></span><span class="tag">Trustcode System</span></button>
-    <button class="spot" style="left:82.5%;top:46.5%" data-open="stack" aria-label="The Depot — my stack"><span class="ring"></span><span class="tag">The Depot · my stack</span></button>
+    <button class="guide" id="guide" data-open="robot" aria-label="Talk to abass, the island guide">
+      <img src="/island/assets/characters/abass-guide.png" alt="abass, a friendly clay robot guide, waving">
+      <span class="guide-bubble" id="guideBubble" role="status" aria-live="polite"><strong>Welcome!</strong> I’m abass., your island guide. Pick any building or ask me anything.</span>
+    </button>
+
+    <!-- Full-building interaction zones: the entire visible structure is clickable. -->
+    <button class="spot" style="left:21.8%;top:34%;--w:12%;--h:38%" data-open="hello" aria-label="The Lighthouse — meet Abass"><span class="ring"></span><span class="tag">The Lighthouse · meet Abass</span></button>
+    <button class="spot" style="left:33.5%;top:36%;--w:15%;--h:23%" data-open="work" aria-label="The Workshop — selected work"><span class="ring"></span><span class="tag">The Workshop · selected work</span></button>
+    <button class="spot" style="left:52.5%;top:32.5%;--w:16%;--h:21%" data-open="craft" aria-label="The Greenhouse — craft and growth"><span class="ring"></span><span class="tag">The Greenhouse · craft</span></button>
+    <button class="spot" style="left:69.3%;top:31%;--w:13%;--h:27%" data-open="agents" aria-label="The Studio — AI-assisted work"><span class="ring"></span><span class="tag">The Studio · AI systems</span></button>
+    <button class="spot" style="left:50%;top:51%;--w:22%;--h:18%" data-open="close" aria-label="The Plaza — contact Abass"><span class="ring"></span><span class="tag">The Plaza · start a conversation</span></button>
+    <button class="spot" style="left:66%;top:64%;--w:14%;--h:28%" data-open="trustcode" aria-label="Trustcode System headquarters"><span class="ring"></span><span class="tag">Trustcode System · company HQ</span></button>
+    <button class="spot" style="left:82.5%;top:48%;--w:15%;--h:28%" data-open="stack" aria-label="The Stack House — tools and technologies"><span class="ring"></span><span class="tag">The Stack House · tools</span></button>
+    <button class="spot" style="left:20.8%;top:59%;--w:15%;--h:26%" data-open="career" aria-label="The Operations House — career and experience"><span class="ring"></span><span class="tag">Operations House · experience</span></button>
+    <button class="spot" style="left:34%;top:69%;--w:17%;--h:25%" data-open="learning" aria-label="The Learning House — education and community"><span class="ring"></span><span class="tag">Learning House · education</span></button>
   </div>
 
 </div>
@@ -618,10 +668,10 @@
 <div class="gate" id="gate">
   <div class="board">
     <div class="board-inner">
-      <h1>A small island of<br>things that actually <em>ship.</em></h1>
-      <p class="sub">Abass Ibrahim — self-taught full-stack developer in Lagos. Five live products, a 500-member community, a room full of AI agents. Every building opens something.</p>
-      <button class="enter" id="enterBtn">Enter the island →</button>
-      <div class="tip">Click any building to explore</div>
+      <h1>Welcome to<br><em>Abass Island.</em></h1>
+      <p class="sub">Come in, look around, and open any building that catches your eye. Your guide is waiting just inside.</p>
+      <button class="enter" id="enterBtn">Start exploring →</button>
+      <div class="tip">A small world built to be explored</div>
     </div>
   </div>
 </div><!-- /.gate — this close tag was missing, so the parser nested the
@@ -630,13 +680,14 @@
              meant opening a place zoomed the island but showed no panel. -->
 
 <div class="legend" id="legend" aria-label="Island places">
-  <button data-open="hello">🏮 Hello</button>
-  <button data-open="work">🏠 Projects</button>
-  <button data-open="agents">🤖 AI Agents</button>
-  <button data-open="craft">🌱 Craft</button>
-  <button data-open="robot">✦ Ask</button>
+  <button data-open="hello">🏮 About</button>
+  <button data-open="work">🏠 Work</button>
+  <button data-open="career">⚙ Experience</button>
   <button data-open="stack">🧱 Stack</button>
+  <button data-open="agents">🤖 AI</button>
+  <button data-open="learning">📚 Learning</button>
   <button data-open="trustcode">🛡 Trustcode</button>
+  <button data-open="robot">✦ Ask</button>
   <button data-open="close">🏆 Contact</button>
 </div>
 
@@ -664,34 +715,34 @@
 /* ---------- place content ---------- */
 const PLACES = {
   hello: {
-    n:'01', kicker:'The Lighthouse — hello', art:'/island/assets/scene-01-hello.webp',
-    promise:'"Some people build things. I build things people find their way to."',
-    body:`I'm <strong>Abass Ibrahim</strong> — a self-taught full-stack developer in Lagos, Nigeria. Three-plus years shipping production web apps across e-commerce, education, fintech and marketplaces, while keeping business-critical systems alive for two oil &amp; gas companies by day. Every building on this island is one part of how I work.`,
-    chips:['full-stack','self-taught','Lagos → remote'],
+    n:'01', kicker:'The Lighthouse — meet Abass', art:'/island/assets/scene-01-hello.webp',
+    promise:'"I turn ambitious ideas into useful, reliable products — and stay close enough to keep them working."',
+    body:`I'm <strong>Abass Ibrahim</strong>, a Lagos-based full-stack developer, systems builder and IT support specialist. Since 2022, I’ve taken products from rough idea to live release across fintech, education, e-commerce and marketplaces. Alongside product work, I support business-critical technology for two oil &amp; gas companies — experience that has made reliability, clear communication and calm problem-solving part of how I build.`,
+    chips:['full-stack delivery','systems thinking','Lagos · remote worldwide'],
   },
   work: {
-    n:'02', kicker:'The Workshop — five live products', art:'/island/assets/scene-02-work.webp',
-    promise:'"Ideas leave my desk as finished, living things."',
-    body:`<a href="https://thethesisdesk.xyz/" target="_blank" rel="noopener"><strong>The Thesis Desk</strong></a> — a real-time crypto trading command center for the 500+ member community I founded. <a href="https://helpingtribeacademy.com/" target="_blank" rel="noopener"><strong>Helping Tribe Academy</strong></a> — a multi-role school platform. <a href="https://wearables-atelier.vercel.app/" target="_blank" rel="noopener"><strong>Wearables Atelier</strong></a> and <a href="https://9thluxe-store-two.vercel.app/" target="_blank" rel="noopener"><strong>Fàdè</strong></a> — two luxury e-commerce storefronts. <a href="https://aureeo.netlify.app/" target="_blank" rel="noopener"><strong>Aureo</strong></a> — a trust-first hiring marketplace. All shipped. All live.`,
-    chips:['Next.js','TypeScript','Tailwind','PostgreSQL · Prisma'],
+    n:'02', kicker:'The Workshop — selected products', art:'/island/assets/scene-02-work.webp',
+    promise:'"I build the whole path from rough idea to reliable release."',
+    body:`My work solves different problems with the same discipline. <a href="https://thethesisdesk.xyz/" target="_blank" rel="noopener"><strong>The Thesis Desk</strong></a> turns trading routines into a focused command centre for a 500+ member community. <a href="https://helpingtribeacademy.com/" target="_blank" rel="noopener"><strong>Helping Tribe Academy</strong></a> gives students, facilitators and administrators clear role-based journeys. <a href="https://wearables-atelier.vercel.app/" target="_blank" rel="noopener"><strong>Wearables Atelier</strong></a> and <a href="https://9thluxe-store-two.vercel.app/" target="_blank" rel="noopener"><strong>Fàdè</strong></a> bring an editorial eye to Nigerian luxury commerce. <a href="https://aureeo.netlify.app/" target="_blank" rel="noopener"><strong>Aureo</strong></a> explores trust-first hiring. Recent builds also extend into HR compliance and Nigerian fintech.`,
+    chips:['product strategy','frontend · backend · data','production delivery'],
   },
   craft: {
-    n:'03', kicker:'The Greenhouse — always growing', art:'/island/assets/scene-03-growing.webp',
-    promise:'"Every project waters the next one."',
-    body:`No CS degree — a greenhouse instead. <strong>600+ commits in the last year</strong>, lessons from real builds written up on <a href="https://hashnode.com/@ghost69" target="_blank" rel="noopener">Hashnode</a> and <a href="https://medium.com/@Ghost69" target="_blank" rel="noopener">Medium</a>, every project compounding into the next. Learning is the job; shipping is the proof.`,
-    chips:['600+ commits / yr','technical writing','iteration'],
+    n:'06', kicker:'The Greenhouse — craft in public', art:'/island/assets/scene-03-growing.webp',
+    promise:'"Curiosity becomes valuable when it turns into a repeatable practice."',
+    body:`I learned software by building, reviewing and rebuilding real products. That practice now spans interface design, backend logic, data modelling, deployment and support. I document useful lessons on <a href="https://hashnode.com/@ghost69" target="_blank" rel="noopener">Hashnode</a> and <a href="https://medium.com/@Ghost69" target="_blank" rel="noopener">Medium</a>, and keep my work visible on <a href="https://github.com/Lingz450" target="_blank" rel="noopener">GitHub</a>. Each release leaves the next project with better patterns, sharper judgment and fewer avoidable mistakes.`,
+    chips:['learning by shipping','technical writing','continuous refinement'],
   },
   agents: {
-    n:'04', kicker:'The Observatory — powered by agents', art:'/island/assets/scene-04-agents.webp',
-    promise:'"One person, operating like a small studio."',
-    body:`I build with AI agents — research, drafting, code, checks. <strong>RAG pipelines, automation bots, agentic tools</strong> that turn one developer into a production line. The robots handle the repetition; I handle the judgment.`,
-    chips:['AI agents','RAG','automation bots','Web3 tools'],
+    n:'05', kicker:'The Studio — AI-assisted systems', art:'/island/assets/scene-04-agents.webp',
+    promise:'"AI expands the surface area of my work; judgment stays human."',
+    body:`I use AI agents as a practical production layer: research, structured drafting, code assistance, review and repeatable checks. I also build <strong>RAG workflows, automation bots and focused agentic tools</strong> where they remove friction for a real user. The goal is not novelty. It is a faster feedback loop, stronger coverage and more time for the decisions that still need human context.`,
+    chips:['AI agents','RAG workflows','automation','human review'],
   },
   close: {
-    n:'05', kicker:'The Plaza — let’s build', art:'/island/assets/scene-06-close.webp',
-    promise:'"The best projects start with a hello."',
-    body:`Open to <strong>remote roles and collaborations worldwide</strong>. Have something in mind — a product, a platform, a rough idea? Reach out and let’s put a date on the calendar.`,
-    chips:['open to work','remote-ready'],
+    n:'09', kicker:'The Plaza — start a conversation', art:'/island/assets/scene-06-close.webp',
+    promise:'"Bring me the problem before it has perfect wording."',
+    body:`I'm open to <strong>remote roles, product collaborations and thoughtful technical work worldwide</strong>. If you need someone who can understand the product, build across the stack, communicate clearly and stay responsible for the outcome after launch, I’d like to hear what you’re working on.`,
+    chips:['remote-ready','product-minded','available for the right fit'],
     ctas:[
       {label:'Say hello', href:'mailto:abassibrahim591@gmail.com', primary:true},
       {label:'See the work', href:'https://github.com/Lingz450', primary:false},
@@ -699,60 +750,70 @@ const PLACES = {
   },
 };
 PLACES.stack = {
-  n:'03', kicker:'The Depot — my stack', art:'/island/assets/islet-stack.webp', fit:true,
-  promise:'"Boring, proven tools. Assembled with taste."',
-  body:`Everything I reach for, grouped by where it lives in a build. I go deep on a small set rather than shallow on everything — the whole island was built with these.`,
+  n:'04', kicker:'The Stack House — tools I trust', art:'/island/assets/islet-stack.webp', fit:true,
+  promise:'"Proven tools, chosen for the problem and assembled with care."',
+  body:`My strongest work lives in the React and Next.js ecosystem, backed by practical experience across APIs, databases, deployment and day-to-day IT operations. The marks below are the official technology logos; the clay blocks keep them at home on the island.`,
   tiles:[
     ['Languages',[
-      ['JavaScript','#E3C24C','mono','JS'],
-      ['TypeScript','#4E7FC1','mono','TS'],
-      ['HTML5','#E2703A','shield','5'],
-      ['CSS3','#4F8BC9','shield','3'],
-      ['Python','#4F7CA8','mono','Py'],
+      ['JavaScript','#F7DF1E','brand','javascript','F7DF1E'],
+      ['TypeScript','#3178C6','brand','typescript','3178C6'],
+      ['HTML5','#E34F26','brand','html5','E34F26'],
+      ['CSS','#663399','brand','css','663399'],
+      ['Python','#3776AB','brand','python','3776AB'],
     ]],
     ['Frontend',[
-      ['React','#4FA3C7','react'],
-      ['Next.js','#4A4A50','next'],
-      ['Tailwind','#4CB6C4','tailwind'],
-      ['React Query','#D96A4A','query'],
-      ['Shadcn UI','#55524C','mono','/'],
+      ['React','#61DAFB','brand','react','149ECA'],
+      ['Next.js','#111111','brand','nextdotjs','111111'],
+      ['Tailwind CSS','#06B6D4','brand','tailwindcss','06B6D4'],
+      ['React Query','#FF4154','brand','reactquery','FF4154'],
+      ['Shadcn UI','#111111','brand','shadcnui','111111'],
     ]],
     ['Backend',[
-      ['Node.js','#7BA05B','hex'],
-      ['Express','#6E6A63','mono','ex'],
-      ['REST APIs','#A08A5B','api'],
+      ['Node.js','#5FA04E','brand','nodedotjs','5FA04E'],
+      ['Express','#111111','brand','express','111111'],
+      ['GraphQL','#E10098','brand','graphql','E10098'],
     ]],
     ['Databases',[
-      ['PostgreSQL','#4A6E96','mono','Pg'],
-      ['Prisma','#3E5A6E','prisma'],
-      ['MongoDB','#6BA05B','leaf'],
-      ['Supabase','#4EA97B','bolt'],
-      ['Firebase','#E0A33E','flame'],
+      ['PostgreSQL','#4169E1','brand','postgresql','4169E1'],
+      ['Prisma','#2D3748','brand','prisma','2D3748'],
+      ['MongoDB','#47A248','brand','mongodb','47A248'],
+      ['Supabase','#3FCF8E','brand','supabase','3FCF8E'],
+      ['Firebase','#DD2C00','brand','firebase','DD2C00'],
     ]],
-    ['DevOps & tools',[
-      ['Git','#E06A46','git'],
-      ['GitHub','#55524C','mono','GH'],
-      ['Vercel','#4A4A50','triangle'],
-      ['Netlify','#46B0AC','diamond'],
-      ['VS Code','#4A87C4','mono','VS'],
+    ['Design & delivery',[
+      ['Git','#F05032','brand','git','F05032'],
+      ['GitHub','#181717','brand','github','181717'],
+      ['Vercel','#111111','brand','vercel','111111'],
+      ['Netlify','#00C7B7','brand','netlify','00A99D'],
+      ['Figma','#F24E1E','brand','figma','F24E1E'],
     ]],
-    ['Web3 & automation',[
-      ['Web3','#8A72B8','hex'],
-      ['AI agents','#C77A5E','spark'],
-      ['Trading bots','#A0864F','bolt'],
-    ]],
+  ],
+  capabilities:[
+    ['Systems & delivery',['REST APIs','Agile workflows','Networking','Access management','IT support']],
+    ['Specialisms',['Web3 development','Trading systems','AI agents','RAG','Automation bots']],
   ],
 };
 PLACES.trustcode = {
-  n:'05', kicker:'The HQ — Trustcode System', art:'/island/assets/islet-trustcode.webp', fit:true,
+  n:'07', kicker:'The HQ — Trustcode System', art:'/island/assets/islet-trustcode.webp', fit:true,
   promise:'"Software you can stake your business on."',
-  body:`<a href="https://trustcodesystem.tech/" target="_blank" rel="noopener"><strong>Trustcode System</strong></a> is the product engineering firm I co-founded — I'm the <strong>Full-Stack Delivery &amp; Design Lead</strong>, alongside a frontend lead in the UK, a cloud/backend lead, and an ISC2-certified SOC analyst leading security. Offices in <strong>Lagos and London</strong>, remote worldwide, <strong>15+ live products</strong> delivered across fintech, edtech, e-commerce, HR tech, Web3 and cybersecurity.<br><br>We ship in staged deliveries with weekly progress demos. Seven service lines: product &amp; web engineering, e-commerce, cloud &amp; DevOps on AWS, AI integration &amp; automation, cybersecurity &amp; SOC, managed IT support, and technical training. Featured work includes <strong>Atlas HR</strong>, a global HR platform with AI compliance features.`,
-  chips:['co-founder','15+ products','Lagos · London','AWS · SOC · AI'],
+  body:`<a href="https://trustcodesystem.tech/" target="_blank" rel="noopener"><strong>Trustcode System</strong></a> is the product engineering company I co-founded. As <strong>Full-Stack Delivery &amp; Design Lead</strong>, I help turn client goals into staged, reviewable releases across product engineering, e-commerce, cloud, AI automation and managed technology support. Our distributed team brings frontend, backend, cloud and security perspectives together, with a Lagos–London footprint and work spanning fintech, edtech, HR tech, Web3, e-commerce and cybersecurity.<br><br>The principle is simple: visible progress, honest communication and software sturdy enough to carry real operations.`,
+  chips:['co-founder','delivery & design lead','Lagos · London','multi-disciplinary team'],
   ctas:[{label:'Visit Trustcode', href:'https://trustcodesystem.tech/', primary:true}],
 };
-const ORDER = ['hello','work','stack','agents','trustcode','craft','close'];
+PLACES.career = {
+  n:'03', kicker:'Operations House — experience', art:'/island/assets/scene-02-work.webp',
+  promise:'"The same calm that ships software keeps critical systems running."',
+  body:`My career runs on two connected tracks. As an <strong>IT Officer at Metropole Petroleum</strong> and an <strong>IT Assistant at Bono Energy Group</strong>, I support hardware, networks, software, user access and day-to-day continuity for teams that need technology to work without drama. As an <strong>independent full-stack developer since 2022</strong>, I design and deliver production products end to end. Operations taught me to diagnose carefully; product engineering taught me to turn that clarity into better systems.`,
+  chips:['IT operations','incident diagnosis','user support','full-stack delivery'],
+};
+PLACES.learning = {
+  n:'08', kicker:'Learning House — education & community', art:'/island/assets/scene-03-growing.webp',
+  promise:'"Education taught me how people learn; software taught me to keep learning."',
+  body:`I earned a <strong>B.Sc. in Educational Management from the University of Ilorin</strong>, then built my software career through focused self-study and real product work. That combination still matters: I care about clear explanations, usable systems and helping people move from confusion to confidence. Since 2021, I’ve also grown a <strong>500+ member crypto and Web3 learning community</strong>, creating structured learning, mentorship and risk-management education for beginners.`,
+  chips:['B.Sc. Educational Management','self-taught engineering','500+ member community','mentorship'],
+};
+const ORDER = ['hello','work','career','stack','agents','craft','trustcode','learning','close'];
 const TOTAL = String(ORDER.length).padStart(2,'0');
-PLACES.hello.n='01'; PLACES.work.n='02'; PLACES.agents.n='04'; PLACES.craft.n='06'; PLACES.close.n='07';
 const SPOT_POS = {}; // filled from hotspot buttons
 
 const wrap = document.getElementById('islandWrap');
@@ -765,6 +826,7 @@ let current = null;
 document.querySelectorAll('.spot').forEach(b=>{
   SPOT_POS[b.dataset.open] = { x: parseFloat(b.style.left), y: parseFloat(b.style.top) };
 });
+SPOT_POS.robot = { x:42, y:37 };
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isNarrow = () => matchMedia('(max-width: 720px)').matches;
@@ -793,11 +855,12 @@ function isDark(hex){
   const r = (n>>16)&255, g = (n>>8)&255, b = n&255;
   return (0.299*r + 0.587*g + 0.114*b) < 125;
 }
-function tile([name, tint, kind, txt]){
-  const g = kind === 'mono'   ? `<span class="mono">${txt}</span>`
-          : kind === 'shield' ? GLYPH.shield(txt)
-          : (GLYPH[kind] || '');
-  return `<div class="logo-tile${isDark(tint)?' on-dark':''}" style="--tint:${tint}" title="${name}">${g}<span class="nm">${name}</span></div>`;
+function tile([name, tint, kind, slug]){
+  const fallback = name.split(/\s+/).map(w=>w[0]).join('').slice(0,3);
+  const g = kind === 'brand'
+    ? `<img class="brand-logo" src="/island/assets/logos/${slug}.svg" alt="${name} official logo" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="mono" hidden>${fallback}</span>`
+    : `<span class="mono">${fallback}</span>`;
+  return `<div class="logo-tile" style="--brand:${tint}" title="${name}">${g}<span class="nm">${name}</span></div>`;
 }
 
 function render(key){
@@ -814,6 +877,7 @@ function render(key){
     <p class="body-copy">${p.body}</p>
     ${p.ctas ? `<div class="cta-row">${p.ctas.map(c=>`<a class="btn ${c.primary?'btn-primary':'btn-ghost'}" href="${c.href}" ${c.href.startsWith('http')?'target="_blank" rel="noopener"':''}>${c.label}</a>`).join('')}</div>`:''}
     ${p.tiles ? p.tiles.map(([t,items])=>`<div class="stack-group"><h4>${t}</h4><div class="logo-grid">${items.map(tile).join('')}</div></div>`).join('') : ''}
+    ${p.capabilities ? p.capabilities.map(([t,items])=>`<div class="stack-group"><h4>${t}</h4><div class="chips">${items.map(c=>`<span class="chip">${c}</span>`).join('')}</div></div>`).join('') : ''}
     ${p.chips ? `<div class="chips">${p.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>` : ''}
     <div class="panel-nav">
       <button data-open="${prev}">← ${PLACES[prev].kicker.split(' — ')[0]}</button>
@@ -915,7 +979,7 @@ const SUGGESTIONS = [
   'How do I hire him?',
 ];
 
-let chatLog = [{ from:'bot', text:`Hi — I'm <strong>abass.</strong>, the robot who keeps this island 👋<br><br>I know everything in this portfolio: the projects, the stack, Trustcode System, the experience behind it and how to get in touch. What would you like to know?` }];
+let chatLog = [{ from:'bot', text:`Welcome — I'm <strong>abass.</strong>, your guide to the island 👋<br><br>I can walk you through Abass's products, experience, education, technical stack, Trustcode System and the best way to reach him. Where should we start?` }];
 
 function answer(q){
   const s = ' ' + q.toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ') + ' ';
@@ -938,10 +1002,10 @@ function answer(q){
 function renderChat(){
   panelCard.innerHTML = `
     <div class="chat-head">
-      <div class="chat-avatar">a<span style="color:#FFD9A8">.</span></div>
+      <div class="chat-avatar"><img src="/island/assets/characters/abass-guide.png" alt="abass robot guide"></div>
       <div>
         <div class="chat-title">abass<span style="color:var(--terra)">.</span></div>
-        <div class="chat-sub">Island guide · knows this whole portfolio</div>
+        <div class="chat-sub">Island guide · projects, experience, stack and more</div>
       </div>
     </div>
     <div class="chat-log" id="chatLogEl">
@@ -998,9 +1062,18 @@ if (!reduceMotion){
 /* ---------- entry signboard ---------- */
 const gate = document.getElementById('gate');
 const enterBtn = document.getElementById('enterBtn');
+const guide = document.getElementById('guide');
+let guideGreetingTimer = null;
+function greetVisitor(){
+  if (!guide || current) return;
+  guide.classList.add('greeting');
+  clearTimeout(guideGreetingTimer);
+  guideGreetingTimer = setTimeout(()=>guide.classList.remove('greeting'), 6200);
+}
 function enterIsland(){
   if (document.body.classList.contains('entered')) return;
   document.body.classList.add('entered');
+  setTimeout(greetVisitor, 650);
   setTimeout(()=>{ gate.setAttribute('aria-hidden','true'); }, 900);
 }
 enterBtn.addEventListener('click', enterIsland);
