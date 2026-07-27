@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
 import { Cursor } from "@/components/ui/Cursor";
+import { Analytics } from "@vercel/analytics/next";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -79,6 +80,7 @@ export default function RootLayout({
           </a>
           <Cursor />
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
