@@ -4,6 +4,8 @@ An editable Abass Ibrahim portfolio based on Rishi Lahoti's MIT-licensed Next.js
 
 The portfolio is published at [abassibrahim.xyz](https://abassibrahim.xyz). The native [About page](https://abassibrahim.xyz/about) presents the profile, capabilities, experience, skills, and education on the web. The original CV is an optional download, with no embedded PDF viewer. Start with [WINDOWS.md](WINDOWS.md) to run the project on your laptop.
 
+Byte, the blue pixel robot in the corner, opens shortcuts to Work, About, and Contact. Visitors can pause its motion, hide it, and restore it with the Guide button. The guide remembers these choices locally and honors reduced motion. Its original transparent sprite lives in `my-portfolio/public/images/byte-guide-v1.png`; the component is in `src/components/SiteGuide/`.
+
 ## Folders
 
 - `my-portfolio/`: your independent editable application, including source, assets, lockfile, and license notices.

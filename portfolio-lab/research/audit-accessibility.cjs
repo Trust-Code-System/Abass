@@ -10,9 +10,11 @@ const evidence=process.env.PORTFOLIO_EVIDENCE_DIR||__dirname;
   const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});
   await page.goto(base,{waitUntil:'networkidle'});
   await page.addScriptTag({path:__dirname+'/qa-tools/node_modules/axe-core/axe.min.js'});
-  for(const state of ['page','navigation','about']){
+  for(const state of ['page','navigation','about','guide','guide-hidden']){
    if(state==='navigation'){if(width===1440)await page.locator('#about').scrollIntoViewIfNeeded();await page.getByRole('button',{name:'Open navigation'}).click();}
    if(state==='about'){await page.keyboard.press('Escape');await page.goto(base+'/about',{waitUntil:'networkidle'});await page.addScriptTag({path:__dirname+'/qa-tools/node_modules/axe-core/axe.min.js'});}
+   if(state==='guide'){await page.getByRole('button',{name:'Open Byte site guide',exact:true}).click();}
+   if(state==='guide-hidden'){await page.getByRole('button',{name:'Hide companion',exact:true}).click();}
    const report=await page.evaluate(async()=>await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));
    results.push({width,state,violations:report.violations.map(v=>({id:v.id,impact:v.impact,description:v.description,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})),incomplete:report.incomplete.map(v=>v.id),passes:report.passes.length});
   }

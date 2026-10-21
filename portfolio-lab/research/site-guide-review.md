@@ -1,0 +1,11 @@
+# Byte site companion
+
+The user requested a floating pixel robot like the supplied screenshot. An original transparent blue robot sprite was generated with the built-in image-generation tool. No source pixels from the screenshot were embedded. The sprite has an RGBA alpha range of 0 to 255 and is saved as `my-portfolio/public/images/byte-guide-v1.png`. Next.js handles image delivery at the displayed size. The oval shadow is drawn separately in CSS.
+
+The companion is a site guide with working Work, About, and Contact shortcuts. It uses the existing React, native dialog, Next.js Link/Image, SCSS modules, and theme tokens. No new application dependency was added. Native modal focus, Escape, and return focus are preserved; clicking outside the panel closes it. Hiding and restoring explicitly move focus to the remaining control. A small Guide control remains available after hiding.
+
+Motion is a six-pixel CSS transform on a 2.8-second cycle, with a matching small shadow change. Hover/focus pauses it for stable interaction. The motion toggle persists locally, reduced-motion CSS and JavaScript preferences disable it, and background tabs pause it. Storage is optional: blocked reads or writes do not prevent the guide from working. Document listeners are removed on teardown. The intro remains visually above the dock and native dialogs stay above page content.
+
+Footer bottom space reserves a clear area for the companion. Dock and panel sizing and footer hit targets are checked at 320, 390, 768, 1024, and 1440 CSS pixels. The dialogue scrolls on short viewports. The accessible controls, local preferences, navigation, reduced motion, storage-unavailable fallback, and forced colors are exercised by `verify-guide.cjs`. Existing portfolio and accessibility checks are also rerun for the shared layout change. Physical-device testing remains unverified.
+
+OmniUI Forge status and healthcheck succeeded. Base UI's popover experiment was inspected as a candidate at revision `051a971ee93dad550ae29f2563f7c2e44592a96d`, repository MIT license evidence, source `docs/src/app/(private)/experiments/popover/popovers.tsx`. The existing native-dialog foundation was retained for this small navigation panel, avoiding a second UI primitive system. No candidate source was copied.

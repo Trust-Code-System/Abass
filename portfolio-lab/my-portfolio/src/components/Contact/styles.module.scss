@@ -1,4 +1,5 @@
 .contact { position: relative; background: #141516; padding: 140px var(--space-page) 32px; color: var(--ink); }
+.contact { padding-bottom: calc(132px + env(safe-area-inset-bottom)); }
 .body { max-width: 1500px; margin: auto; }
 .title { position: relative; padding-bottom: 100px; border-bottom: 1px solid var(--line); > span:first-child { display: flex; align-items: center; gap: 28px; } h2 { margin: 0; font-size: clamp(48px, 7.5vw, 112px); line-height: 1.2; font-weight: 300; letter-spacing: -.05em; } }
 .imageContainer { position: relative; width: 80px; height: 80px; border-radius: 50%; overflow: hidden; img { object-fit: cover; object-position: center 25%; } }

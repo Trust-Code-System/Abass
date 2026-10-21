@@ -1,6 +1,7 @@
 import './globals.css';
 import '@fontsource-variable/lexend';
 import Header from '../components/Header';
+import SiteGuide from '../components/SiteGuide';
 import { profile } from './data';
 import { siteUrl, isProduction } from './site';
 
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
 				<a className="skip-link" href="#main-content">Skip to content</a>
 				<Header />
 				{children}
+				<SiteGuide />
 				<noscript><p className="noscript-note">For contact and enquiries, email {profile.email}.</p></noscript>
 			</body>
 		</html>

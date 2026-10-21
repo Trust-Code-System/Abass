@@ -35,6 +35,13 @@ export const navigation = [
 	{ title: 'About', href: '/about' },
 	{ title: 'Contact', href: '/#contact' },
 ];
+export const siteGuide = {
+	name: 'Byte',
+	title: 'A little help finding your way?',
+	description: 'Pick a place. I’ll take you there.',
+	sprite: '/images/byte-guide-v1.png',
+	links: navigation.filter(item => item.title !== 'Home'),
+};
 // Professional history and education adapted from the supplied CV. No new metrics added.
 export const expertise = [
 	{ title: 'Design with intent.', label: '01 / Design', description: 'Clear journeys, considered interfaces, and the details that make a product feel right.', tags: ['UI/UX', 'Responsive design', 'Interaction'] },
