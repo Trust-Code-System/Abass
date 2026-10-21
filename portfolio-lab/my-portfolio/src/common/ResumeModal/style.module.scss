@@ -1,0 +1,7 @@
+.panel { width: min(960px, calc(100% - 32px)); height: 88dvh; max-height: 88dvh; padding: 0; border: 1px solid var(--line); border-radius: 16px; color: var(--ink); background: var(--canvas); overflow: hidden; &::backdrop { background: #000b; } &[open] { display: flex; flex-direction: column; } }
+.toolbar { display: flex; gap: 16px; align-items: center; justify-content: flex-end; padding: 12px 20px; border-bottom: 1px solid var(--line); h2 { font-size: 12px; font-weight: 400; margin-right: auto; } }
+.download { font-size: 12px; border: 1px solid var(--line); border-radius: 30px; padding: 12px 18px; text-decoration: none; }
+.close { background: transparent; border: 0; color: var(--ink); font-size: 30px; min-width: 44px; min-height: 44px; }
+.frame { flex: 1; border: 0; width: 100%; background: #fff; }
+.fallback { font-size: 11px; text-align: center; padding: 4px 16px; }
+@media (max-width: 480px) { .toolbar { flex-wrap: wrap; gap: 6px; padding: 8px 12px; h2 { width: calc(100% - 54px); order: -2; margin: 0; } .close { order: -1; } .download { margin: 0 auto 8px; } } }

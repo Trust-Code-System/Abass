@@ -1,0 +1,67 @@
+[
+  {
+    "width": 1440,
+    "state": "page",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "color-contrast"
+    ],
+    "passes": 22
+  },
+  {
+    "width": 1440,
+    "state": "navigation",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "color-contrast"
+    ],
+    "passes": 22
+  },
+  {
+    "width": 1440,
+    "state": "resume",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "color-contrast"
+    ],
+    "passes": 24
+  },
+  {
+    "width": 390,
+    "state": "page",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "color-contrast"
+    ],
+    "passes": 22
+  },
+  {
+    "width": 390,
+    "state": "navigation",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "color-contrast"
+    ],
+    "passes": 22
+  },
+  {
+    "width": 390,
+    "state": "resume",
+    "violations": [],
+    "incomplete": [
+      "aria-prohibited-attr",
+      "aria-valid-attr-value",
+      "color-contrast"
+    ],
+    "passes": 24
+  }
+]

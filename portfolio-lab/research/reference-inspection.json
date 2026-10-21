@@ -1,0 +1,40 @@
+[
+  {
+    "name": "rishi",
+    "status": 200,
+    "headings": [
+      "Rishi Lahoti —Rishi Lahoti —",
+      "WhatRunsIndia",
+      "AshbyHQ Job Scraper",
+      "LH44-INN",
+      "Portfolio",
+      "Let's work",
+      "together",
+      "Version",
+      "socials"
+    ],
+    "text": "©\n\nReCode by\n\nRishi\n\nLahoti\n\nWork\nAbout\nContact\n\nRishi Lahoti —\n\nRishi Lahoti —\n\nSoftware Engineer\n\nIndia: 06:49:49 pm\n\nSoftware engineer building full-stack & AI systems — open to remote/hybrid roles, available immediately.\n\nOther than that, I like Video Games, Anime, Formula 1, NBA and e-Sports. I touch grass by playing Basketball and Swimming.\n\nDownload Resume\nMaiti Labs\nFeb-2024 - May-2024\nDarak Agriveda\nOct-2024 - Feb-2025\nNature Crave\nFeb-2025 - Aug-2025\nPostship / Instavid\nNov-2025 - Feb-2026\nProdinit\nMar-2026 - Sep-2026\nWhatRunsIndia\n\nSolving ad creative fatigue, the #1 growth constraint for 62% of Indian D2C founders (DSG Consumer Partners x Meta, 2025) with a catalog-to-multichannel creative pipeline.\n\nTech Stack: Next.js, TypeScript, Django, PostgreSQL, Meta Graph API.\n\nArchitected auth separating low-scope login from high-scope Meta Business grants, with fault-tolerant Meta sync (retry classification, exponential backoff, pre-emptive quota throttling).\n\nSee more\nAshbyHQ Job Scraper\n\nEvery job on AshbyHQ, in one feed. Scrapes the public Ashby job board API across 100+ top tech startups so you don't have to check each board manually.\n\nTech Stack: Node.js, Postgres, Next.js, GitHub Actions.\n\nCron-driven ingestion pipeline (registry, fetch, normalize, diff, snapshot, notify) with idempotent PostgreSQL upserts and failure-isolated job processing.\n\nSee more\nLH44-INN\n\nStay somewhere worth remembering. Instant hotel search by city and dates, with a calm booking flow built for late-night plans and last-minute escapes.\n\nTech Stack: Next.js, TypeScript, Tailwind CSS, Framer Motion, GSAP on the frontend; Spring Boot backend.\n\nLive availability refresh keeps room counts and pricing from ever going stale mid-booking.\n\nSee more\nPortfolio\n\nBuilt to make you stop scrolling. This site leans on GSAP and Framer Motion for scroll-driven motion most portfolios don't bother with, inspired by Dennis Snellenberg's portfolio.\n\nTech Stack: NextJs, Sass, JavaScript, Framer Motion a",
+    "overflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 7934
+    },
+    "errors": []
+  },
+  {
+    "name": "dennis",
+    "status": 200,
+    "headings": [
+      "Dennis Snellenberg—Dennis Snellenberg—Dennis Snellenberg—Dennis Snellenberg—",
+      "Let’s work",
+      "together"
+    ],
+    "text": "Offcanvas Toggle\nCode by\nDennis\nSnellenberg\nWork\nAbout\nContact\nDennis Snellenberg—Dennis Snellenberg—Dennis Snellenberg—Dennis Snellenberg—\nFreelance\nDesigner & Developer\nHelping\nbrands\nto\nstand\nout\nin\nthe\ndigital\nera.\nTogether\nwe\nwill\nset\nthe\nnew\nstatus\nquo.\nNo\nnonsense,\nalways\non\nthe\ncutting\nedge.\n\nThe combination of my passion for design, code & interaction positions me in a unique place in the web design world.\n\nAbout me\nRecent work\nFABRIC™\n\nDesign & Development\n\nAanstekelijk\n\nDesign & Development\n\nBase Create\n\nDesign & Development\n\nAVVR\n\nDesign & Development\n\nView\nMore work14\nLet’s work\ntogether\nGet in touch\ninfo@dennissnellenberg.com\n+31 6 27 84 74 30\nVERSION\n\n2022 © Edition\n\nLOCAL TIME\n\n04:01 PM GMT+2\n\nSOCIALS\nAwwwards\nInstagram\nDribbble\nLinkedIn",
+    "overflow": {
+      "scrollWidth": 1440,
+      "innerWidth": 1440,
+      "scrollHeight": 4435
+    },
+    "errors": []
+  }
+]

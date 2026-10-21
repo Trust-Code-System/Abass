@@ -1,0 +1,123 @@
+[
+  {
+    "name": "dennis",
+    "status": 200,
+    "height": 4435,
+    "images": [
+      {
+        "src": "/_next/image?url=%2Flocal-media%2Fportrait.png&w=3840&q=75",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/thesis.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/helping-tribe.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/wearables.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/atlas.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/thesis.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/helping-tribe.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/wearables.svg",
+        "loaded": true
+      },
+      {
+        "src": "/local-media/atlas.svg",
+        "loaded": true
+      },
+      {
+        "src": "/_next/image?url=%2Flocal-media%2Fportrait.png&w=3840&q=75",
+        "loaded": true
+      }
+    ],
+    "videos": [
+      {
+        "src": "/local-media/motion-1.mp4",
+        "readyState": 4,
+        "error": null
+      },
+      {
+        "src": "/local-media/motion-2.mp4",
+        "readyState": 4,
+        "error": null
+      },
+      {
+        "src": "/local-media/motion-1.mp4",
+        "readyState": 4,
+        "error": null
+      },
+      {
+        "src": "/local-media/motion-2.mp4",
+        "readyState": 4,
+        "error": null
+      }
+    ],
+    "routes": {
+      "/work": 200,
+      "/about": 200,
+      "/contact": 200,
+      "/fabric": 404
+    },
+    "mobileWidth": {
+      "viewport": 390,
+      "scrollWidth": 390
+    },
+    "errors": []
+  },
+  {
+    "name": "rishi",
+    "status": 200,
+    "height": 7934,
+    "images": [
+      {
+        "src": "/_next/image?url=%2Fimages%2F4.webp&w=3840&q=75",
+        "loaded": true
+      },
+      {
+        "src": "/_next/image?url=%2Fimages%2Fwhatrunsindia.webp&w=3840&q=75",
+        "loaded": true
+      },
+      {
+        "src": "/_next/image?url=%2Fimages%2Fashbyhq.webp&w=3840&q=75",
+        "loaded": false
+      },
+      {
+        "src": "/_next/image?url=%2Fimages%2Flh44-inn.webp&w=3840&q=75",
+        "loaded": false
+      },
+      {
+        "src": "/_next/image?url=%2Fimages%2Fportfolio_new.webp&w=3840&q=75",
+        "loaded": false
+      },
+      {
+        "src": "/_next/image?url=%2Fimages%2Favatar.jpg&w=3840&q=75",
+        "loaded": false
+      }
+    ],
+    "videos": [],
+    "routes": {
+      "workScroll": 2234,
+      "resumeIframeVisible": true
+    },
+    "mobileWidth": {
+      "viewport": 390,
+      "scrollWidth": 430
+    },
+    "errors": []
+  }
+]

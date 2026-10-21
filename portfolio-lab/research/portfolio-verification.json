@@ -1,0 +1,88 @@
+{
+  "checks": [
+    {
+      "check": "Page renders Abass identity and four projects",
+      "status": "passed"
+    },
+    {
+      "check": "Marquee pause control",
+      "status": "passed"
+    },
+    {
+      "check": "Desktop anchor navigation",
+      "status": "passed"
+    },
+    {
+      "check": "Circuit practice-area interaction",
+      "status": "passed"
+    },
+    {
+      "check": "Résumé modal opens, exposes PDF download, and closes",
+      "status": "passed"
+    },
+    {
+      "check": "Navigation dialog traps focus, Escape closes, focus returns",
+      "status": "passed"
+    },
+    {
+      "check": "All project sections traversed",
+      "status": "passed"
+    },
+    {
+      "check": "Contact and social navigation exposed",
+      "status": "passed"
+    },
+    {
+      "check": "No horizontal overflow or broken loaded images at 320px",
+      "status": "passed"
+    },
+    {
+      "check": "No horizontal overflow or broken loaded images at 390px",
+      "status": "passed"
+    },
+    {
+      "check": "No horizontal overflow or broken loaded images at 768px",
+      "status": "passed"
+    },
+    {
+      "check": "No horizontal overflow or broken loaded images at 1024px",
+      "status": "passed"
+    },
+    {
+      "check": "No horizontal overflow or broken loaded images at 1440px",
+      "status": "passed"
+    },
+    {
+      "check": "Mobile menu navigation closes and reaches target",
+      "status": "passed"
+    },
+    {
+      "check": "Reduced motion removes continuous animations and sticky card scaling",
+      "status": "passed"
+    },
+    {
+      "check": "Keyboard skip link reaches main content",
+      "status": "passed"
+    },
+    {
+      "check": "Résumé PDF request returns PDF data",
+      "status": "passed"
+    },
+    {
+      "check": "All portfolio source images and favicon load",
+      "status": "passed"
+    },
+    {
+      "check": "Social image route renders",
+      "status": "passed"
+    },
+    {
+      "check": "No browser JavaScript errors, failed requests, or HTTP asset errors",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "badResponses": [],
+  "failedRequests": [],
+  "navigationAborts": []
+}

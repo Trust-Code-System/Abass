@@ -1,0 +1,12 @@
+.cardContainer { min-height: 100svh; display: flex; align-items: center; justify-content: center; position: sticky; top: 0; z-index: 1; padding: 40px var(--space-page); color: #202124; &.lastCard { position: relative; } &[data-reduced=true] { position: relative; } }
+.card { display: flex; flex-direction: column; position: relative; min-height: 550px; width: 100%; max-width: 1400px; border-radius: 24px; padding: 44px; transform-origin: top; }
+.heading { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; span { font-size: 11px; letter-spacing: .03em; text-transform: uppercase; } h3 { font-size: clamp(24px, 2.6vw, 40px); font-weight: 400; margin: 0; letter-spacing: -.045em; } }
+.body { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; margin-top: 36px; flex: 1; }
+.description { display: flex; flex-direction: column; justify-content: center; p { font-size: 16px; line-height: 1.8; margin: 0 0 20px; } .stack, .category { font-size: 11px; line-height: 1.8; } .category { color: #4c4e51; } a { width: fit-content; display: inline-flex; align-items: center; gap: 32px; color: #202124; font-size: 13px; text-decoration: none; border-bottom: 1px solid #7b7b76; padding: 12px 0; span { font-size: 24px; transition: transform 180ms var(--ease-out); } &:focus-visible { outline-color: #202124; } } }
+.imageContainer { position: relative; min-height: 340px; overflow: hidden; border-radius: 12px; .inner { width: 100%; height: 100%; position: absolute; } img { object-fit: cover; } }
+@media (hover: hover) and (pointer: fine) { .description a:hover span { transform: translate(3px, -3px); } }
+@media (max-width: 1024px) { .cardContainer { padding-inline: 32px; } .card { padding: 30px; } .body { gap: 30px; } }
+@media (max-width: 768px) { .cardContainer { position: relative; min-height: auto; padding: 16px 20px; .card { top: 0 !important; transform: none !important; min-height: 0; padding: 26px; border-radius: 18px; } } .heading { display: block; h3 { margin-top: 14px; font-size: 26px; } } .body { display: flex; flex-direction: column-reverse; gap: 24px; margin-top: 24px; } .imageContainer { min-height: 240px; border-radius: 8px; } .description p { font-size: 14px; } }
+@media (prefers-reduced-motion: reduce) { .description a span { transition: none; } }
+
+@media (prefers-reduced-motion: reduce) { .cardContainer { position: relative; .card, .inner { transform: none !important; } } }

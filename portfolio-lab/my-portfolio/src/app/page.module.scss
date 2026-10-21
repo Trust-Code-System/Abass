@@ -1,0 +1,4 @@
+.main { position: relative; }
+.projectsContainer { position: relative; padding: 70px 0 120px; }
+.workHeading { padding: 0 var(--space-page) 24px; span { color: var(--muted); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; } h2 { font-size: clamp(32px, 4vw, 60px); font-weight: 400; letter-spacing: -.04em; margin: 20px 0; } }
+@media (max-width: 768px) { .projectsContainer { padding: 32px 0 80px; } }

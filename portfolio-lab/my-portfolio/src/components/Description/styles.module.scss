@@ -1,0 +1,9 @@
+.description { padding: 150px var(--space-page) 90px; }
+.eyebrow { font-size: 12px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+.body { display: grid; grid-template-columns: 1.6fr 1fr; gap: 100px; margin-top: 44px; h2 { margin: 0; font-size: clamp(30px, 3.3vw, 52px); font-weight: 400; line-height: 1.4; letter-spacing: -.035em; } }
+.mask { display: inline-block; overflow: clip; vertical-align: bottom; span { display: inline-block; } }
+.details { p { color: var(--muted); line-height: 1.9; font-size: 16px; margin: 0; } .button { margin-top: 36px; width: 160px; height: 160px; font-size: 13px; } }
+.capabilities { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 110px; > div { border-top: 1px solid var(--line); padding-top: 20px; } span { color: var(--muted); font-size: 11px; } p { font-size: 16px; font-weight: 300; line-height: 1.5; } }
+@media (max-width: 1024px) { .body { gap: 48px; } }
+@media (max-width: 768px) { .description { padding-top: 90px; padding-bottom: 40px; } .body { grid-template-columns: 1fr; gap: 28px; margin-top: 24px; } .details { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; p { font-size: 14px; } .button { width: 108px; height: 108px; margin: 0; font-size: 11px; padding: 10px; } } .capabilities { margin-top: 60px; grid-template-columns: 1fr 1fr; gap: 24px; p { font-size: 14px; } } }
+@media (max-width: 360px) { .details { display: block; .button { margin-top: 24px; } } }

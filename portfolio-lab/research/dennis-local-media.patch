@@ -1,0 +1,224 @@
+diff --git a/app/_data/project-options.js b/app/_data/project-options.js
+index c1a4590..659b2fb 100644
+--- a/app/_data/project-options.js
++++ b/app/_data/project-options.js
+@@ -2,37 +2,37 @@ export const projectOptions = {
+   first: [
+     {
+       type: 'image',
+-      source: 'Dennis-Portfolio/images/rpmf9egswyd8563mxe9t',
++      source: '/local-media/thesis.svg',
+     },
+     {
+       type: 'video',
+-      source: 'Dennis-Portfolio/videos/fldn3dntkusr22roeybr',
++      source: '/local-media/motion-1.mp4',
+     },
+     {
+       type: 'image',
+-      source: 'Dennis-Portfolio/images/k7bp2wbfmalpjfk3yk5q',
++      source: '/local-media/helping-tribe.svg',
+     },
+     {
+       type: 'video',
+-      source: 'Dennis-Portfolio/videos/x8w8sbohl5wkfuelmkhu',
++      source: '/local-media/motion-2.mp4',
+     },
+   ],
+   second: [
+     {
+       type: 'image',
+-      source: 'Dennis-Portfolio/images/r4kcbkvkl0djjt0mxmcw',
++      source: '/local-media/wearables.svg',
+     },
+     {
+       type: 'video',
+-      source: 'Dennis-Portfolio/videos/q0yepc6dssbosmdk3isu',
++      source: '/local-media/motion-1.mp4',
+     },
+     {
+       type: 'image',
+-      source: 'Dennis-Portfolio/images/ffoc9zsoeusptc7jcid5',
++      source: '/local-media/atlas.svg',
+     },
+     {
+       type: 'video',
+-      source: 'Dennis-Portfolio/videos/usiswniv5qhgu2vamhnx',
++      source: '/local-media/motion-2.mp4',
+     },
+   ],
+ };
+diff --git a/app/_data/thumbnail-options.js b/app/_data/thumbnail-options.js
+index 72c43a9..3b42d41 100644
+--- a/app/_data/thumbnail-options.js
++++ b/app/_data/thumbnail-options.js
+@@ -2,21 +2,21 @@ export const thumbnailOptions = [
+   {
+     href: '/fabric',
+     title: 'FABRIC™',
+-    image: 'Dennis-Portfolio/images/hlz36eeb3ddfvqt9tex9',
++    image: '/local-media/thesis.svg',
+   },
+   {
+     href: '/aanstekelijk',
+     title: 'Aanstekelijk',
+-    image: 'Dennis-Portfolio/images/aigt2q3xiqb8ovujzscc',
++    image: '/local-media/helping-tribe.svg',
+   },
+   {
+     href: '/base-create',
+     title: 'Base Create',
+-    image: 'Dennis-Portfolio/images/ahuzarh793qmv9sdveyk',
++    image: '/local-media/wearables.svg',
+   },
+   {
+     href: '/avvr',
+     title: 'AVVR',
+-    image: 'Dennis-Portfolio/images/pzychyr1ans60gqlevhg',
++    image: '/local-media/atlas.svg',
+   },
+ ];
+diff --git a/app/_layout/contact/components/user-details/index.jsx b/app/_layout/contact/components/user-details/index.jsx
+index 7670b85..a0ae481 100644
+--- a/app/_layout/contact/components/user-details/index.jsx
++++ b/app/_layout/contact/components/user-details/index.jsx
+@@ -3,7 +3,7 @@
+ import { motion } from 'framer-motion';
+ import { ArrowDownLeft } from 'lucide-react';
+ import Link from 'next/link';
+-import { CldImage } from 'next-cloudinary';
++import Image from 'next/image';
+ 
+ import { MagneticButton } from '@/components';
+ 
+@@ -19,11 +19,11 @@ export function UserDetails({ transformX }) {
+       <Row>
+         <div className='flex items-center gap-8'>
+           <ImageWrapper>
+-            <CldImage
+-              src='Dennis-Portfolio/images/mqtwxh5znybowgaljrbp'
++            <Image
++              src='/local-media/portrait.png'
+               className='rounded-full object-cover'
+               fill={true}
+-              alt='Dennis Snellenberg Profile Picture'
++              alt='Local replacement portrait of Abass Ibrahim'
+             />
+           </ImageWrapper>
+           <MainTitle>Let’s work</MainTitle>
+diff --git a/app/_layout/header/index.jsx b/app/_layout/header/index.jsx
+index ee6c6bc..f03aa0d 100644
+--- a/app/_layout/header/index.jsx
++++ b/app/_layout/header/index.jsx
+@@ -2,7 +2,7 @@
+ 
+ import { motion } from 'framer-motion';
+ import { MoveDownRight } from 'lucide-react';
+-import { CldImage } from 'next-cloudinary';
++import Image from 'next/image';
+ 
+ import { ParallaxSlider } from '@/components';
+ 
+@@ -16,12 +16,12 @@ export function Header() {
+       initial='initial'
+       animate='enter'
+     >
+-      <CldImage
+-        src='Dennis-Portfolio/images/lapetmmek4fymz68m4u8'
++      <Image
++        src='/local-media/portrait.png'
+         className='object-cover md:scale-125 md:object-contain'
+         fill={true}
+         sizes='100vw'
+-        alt='Dennis Snellenberg Personal Picture'
++        alt='Local replacement portrait of Abass Ibrahim'
+       />
+ 
+       <div className='relative flex h-full flex-col justify-end gap-2 md:flex-col-reverse md:justify-normal'>
+diff --git a/app/_layout/project/slider.jsx b/app/_layout/project/slider.jsx
+index 90ac05d..14bde5b 100644
+--- a/app/_layout/project/slider.jsx
++++ b/app/_layout/project/slider.jsx
+@@ -1,48 +1,15 @@
+-'use client';
+-
+-import { CldImage, CldVideoPlayer } from 'next-cloudinary';
+-
++"use client";
++import Image from 'next/image';
++import { useEffect, useRef } from 'react';
+ import { Center } from '@/components';
+-
+-/**
+- * @param {Object} props
+- * @param {'image' | 'video'} props.type
+- * @param {string} props.source
+- */
+ export function ProjectSlider({ type, source }) {
+-  const image =
+-    type === 'image' ? (
+-      <CldImage
+-        src={source}
+-        className='object-cover'
+-        fill={true}
+-        alt='project items'
+-      />
+-    ) : null;
+-  const video =
+-    type === 'video' ? (
+-      <CldVideoPlayer
+-        src={source}
+-        loop={true}
+-        controls={false}
+-        muted={true}
+-        autoPlay='always'
+-        width='100%'
+-        height='100%'
+-        className='!static !bg-transparent'
+-      />
+-    ) : null;
+-
+-  return (
+-    <Center
+-      className='relative w-1/4 rounded'
+-      style={{
+-        minWidth: '150px',
+-        height: '20vw',
+-      }}
+-    >
+-      {image}
+-      {video}
+-    </Center>
+-  );
++  const video = useRef(null);
++  useEffect(() => {
++    if (type !== 'video') return;
++    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
++    const update = () => { if (preference.matches) video.current?.pause(); else video.current?.play().catch(() => {}); };
++    update(); preference.addEventListener('change', update);
++    return () => preference.removeEventListener('change', update);
++  }, [type]);
++  return <Center className='relative w-1/4 overflow-hidden rounded' style={{ minWidth: '150px', height: '20vw' }}>{type === 'image' ? <Image src={source} className='object-cover' fill sizes='25vw' alt='Original local project cover' /> : <video ref={video} src={source} loop muted playsInline controls aria-label='Local abstract motion study' style={{width:'100%',height:'100%',objectFit:'cover'}} />}</Center>;
+ }
+diff --git a/app/_layout/thumbnail/components/modal/index.jsx b/app/_layout/thumbnail/components/modal/index.jsx
+index 84af67b..cab59de 100644
+--- a/app/_layout/thumbnail/components/modal/index.jsx
++++ b/app/_layout/thumbnail/components/modal/index.jsx
+@@ -3,7 +3,7 @@
+ import { forwardRef } from 'react';
+ 
+ import { motion } from 'framer-motion';
+-import { CldImage } from 'next-cloudinary';
++import Image from 'next/image';
+ 
+ import { Center } from '@/components';
+ import { thumbnailOptions } from '@/data';
+@@ -21,7 +21,7 @@ export const ThumbnailModal = forwardRef(
+       const id = randomId();
+       return (
+         <Center key={id} className='h-full w-full'>
+-          <CldImage
++          <Image
+             src={image}
+             width={320}
+             height={320}

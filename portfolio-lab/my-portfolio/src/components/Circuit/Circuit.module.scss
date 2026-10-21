@@ -1,0 +1,5 @@
+.circuitContainer { margin-top: 70px; }
+.track { width: min(760px, 100%); margin: auto; position: relative; svg { width: 100%; height: 430px; display: block; } }
+.activeLabel { text-align: center; position: absolute; left: 45%; top: 14%; max-width: 50%; span { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; } p { font-size: 18px; font-weight: 300; margin-top: 10px; } }
+.capabilities { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 20px; button { background: transparent; color: var(--ink); border: 0; border-top: 1px solid var(--line); padding: 20px 0; text-align: left; min-height: 86px; &[aria-pressed=true] { border-color: var(--accent); } } span { color: var(--muted); font-size: 11px; } p { font-size: 15px; font-weight: 300; line-height: 1.5; margin: 10px 0 0; } }
+@media (max-width: 768px) { .circuitContainer { margin-top: 36px; } .track svg { height: 300px; } .activeLabel { left: 42%; top: 12%; span { font-size: 8px; } p { font-size: 13px; } } .capabilities { grid-template-columns: 1fr 1fr; gap: 16px; p { font-size: 13px; } } }

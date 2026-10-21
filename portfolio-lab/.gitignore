@@ -1,0 +1,4 @@
+.npm-cache/
+.pnpm-store/
+references/
+research/qa-tools/node_modules/
