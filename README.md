@@ -2,7 +2,11 @@
 
 Personal portfolio for Abass Ibrahim, a full-stack product engineer and delivery lead at [TrustCode Systems](https://trustcodesystem.tech/).
 
-[View the live portfolio](https://abass-rho.vercel.app)
+[View the live portfolio](https://abassibrahim.xyz)
+
+The published application is in `portfolio-lab/my-portfolio`. Vercel project `abass` must use that Root Directory, the Next.js framework preset, and the `main` production branch. The repository root contains the previous island portfolio. Merging changes to the lab does not replace the root application.
+
+The new app uses `https://abassibrahim.xyz` for canonical metadata and enables search indexing and its sitemap only when `VERCEL_ENV=production`; local and preview builds remain excluded.
 
 ## What is included
 

@@ -3,12 +3,14 @@ import '@fontsource-variable/lexend';
 import Header from '../components/Header';
 import { ResumeModalProvider } from '../common/ResumeModal';
 import { profile } from './data';
+import { siteUrl, isProduction } from './site';
 
 export const metadata = {
-	metadataBase: new URL('http://localhost:3000'),
+	metadataBase: new URL(siteUrl),
+	alternates: { canonical: '/' },
 	title: 'Abass Ibrahim | Developer & Designer',
 	description: 'Full-stack development, UI/UX design, AI and automation. The personal portfolio of Abass Ibrahim, co-lead at TrustCode System Limited.',
-	robots: { index: false, follow: false },
+	robots: { index: isProduction, follow: isProduction },
 };
 export const viewport = { themeColor: '#1c1d20', width: 'device-width', initialScale: 1, viewportFit: 'cover' };
 
