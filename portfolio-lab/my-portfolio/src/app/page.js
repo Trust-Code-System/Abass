@@ -1,6 +1,6 @@
 'use client';
 import useReducedMotion from '../common/useReducedMotion';
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { AnimatePresence, useScroll, MotionConfig } from 'framer-motion';
 import styles from './page.module.scss';
 import Preloader from '../components/Preloader';
@@ -13,6 +13,7 @@ import { projects } from './data';
 
 export default function Home() {
 	const [isLoading, setIsLoading] = useState(true);
+	const completeIntro = useCallback(() => setIsLoading(false), []);
 	const reduce = useReducedMotion();
 	const container = useRef(null);
 	const { scrollYProgress } = useScroll({ target: container, offset: ['start start', 'end end'] });
@@ -31,13 +32,12 @@ export default function Home() {
 		return () => { stop(); preference.removeEventListener('change', start); };
 	}, []);
 	useEffect(() => {
-		const timer = setTimeout(() => setIsLoading(false), reduce ? 0 : 1100);
-		return () => clearTimeout(timer);
-	}, [reduce]);
+		if (reduce) completeIntro();
+	}, [reduce, completeIntro]);
 	return (
 		<MotionConfig reducedMotion="user">
 			<main ref={container} className={styles.main} id="main-content" tabIndex={-1}>
-				<AnimatePresence>{isLoading && !reduce && <Preloader />}</AnimatePresence>
+				<AnimatePresence>{isLoading && !reduce && <Preloader onComplete={completeIntro} />}</AnimatePresence>
 				<Landing />
 				<Description />
 				<section className={styles.projectsContainer} aria-labelledby="work-title" id="work">

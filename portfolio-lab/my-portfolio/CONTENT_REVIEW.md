@@ -20,4 +20,6 @@ Review before publication:
 
 No phone number, employment dates, client outcomes, user counts, awards, immediate availability, or unprovided career history was invented. Rishi's employment history and Formula 1 car imagery were replaced with your editable areas of practice. His portrait, resume, custom font files, project images, analytics identifiers, search verification tokens, and social accounts are absent from this customized app.
 
-Local preview indexing is disabled. Configure the real domain and review metadata before any separately authorized deployment. No deployment has been performed.
+Local and preview indexing are disabled. Production uses `https://abassibrahim.xyz`, with a canonical URL and sitemap for the homepage and `/about`. Deployment was authorized in the follow-up work.
+
+The native About page adapts professional experience, skills, education, and writing links from the existing CV. Employment dates are supplied CV records, not independent confirmation of current employment. The company co-lead and Full-Stack Delivery & Design context comes from the user's recorded company brief. No community size, commit count, performance outcome, or additional qualification was added.

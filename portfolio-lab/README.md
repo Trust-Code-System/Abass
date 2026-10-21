@@ -2,7 +2,7 @@
 
 An editable Abass Ibrahim portfolio based on Rishi Lahoti's MIT-licensed Next.js implementation. The full-height portrait, oversized moving name, smooth scrolling, circuit, stacked work cards, magnetic controls, expanded navigation, résumé viewer, and contact composition remain the core experience. A dark palette, Abass content, and permitted replacement media personalize it.
 
-Start with [WINDOWS.md](WINDOWS.md) to download, extract, and run it on your laptop. Cloud processes do not make localhost available on your computer. This project has not been deployed.
+The portfolio is published at [abassibrahim.xyz](https://abassibrahim.xyz). The native [About page](https://abassibrahim.xyz/about) presents the profile, capabilities, experience, skills, and education on the web. The original CV is an optional download, with no embedded PDF viewer. Start with [WINDOWS.md](WINDOWS.md) to run the project on your laptop.
 
 ## Folders
 
@@ -37,15 +37,16 @@ The start helper opens three PowerShell windows on Windows. On Linux it prints t
 
 ## Edit
 
-- Identity, projects, contact, links, and practice areas: `my-portfolio/src/app/data.js`.
+- Identity, projects, contact, links, greetings, profile history, education, and capabilities: `my-portfolio/src/app/data.js`.
+- Native profile layout and styles: `my-portfolio/src/app/about/`.
 - Theme tokens, focus styles, scrollbar: `my-portfolio/src/app/globals.css`.
 - Layout, imagery, marquee: `src/components/Landing/`.
 - About and circuit: `src/components/Description/`, `src/components/Circuit/`.
 - Stacked project cards: `src/components/Projects/`.
-- Navigation, contact, résumé modal: their corresponding component folders.
+- Navigation and contact: their corresponding component folders. The navigation links to `/about`; CV links download the file.
 - Portrait, résumé, project art: `my-portfolio/public/`.
 
-Styles use the original SCSS module architecture. The application remains JavaScript, Next.js 14, and React 18. GSAP handles decorative parallax and magnetic interactions; Framer Motion handles transitions and scroll-linked cards; Lenis handles smooth wheel scrolling. A native modal dialog provides accessible modal behavior without another component library. Motion respects user preferences, and the moving name has a pause button.
+Styles use the original SCSS module architecture. The application remains JavaScript, Next.js 14, and React 18. GSAP handles decorative parallax and magnetic interactions; Framer Motion handles transitions and scroll-linked cards; Lenis handles smooth wheel scrolling. A native dialog provides expanded navigation. The intro cycles through ten greetings and reveals the portfolio after the final one. Motion respects user preferences, and the moving name has a pause button.
 
 See `my-portfolio/CONTENT_REVIEW.md` for unverified current content and `my-portfolio/THIRD_PARTY_NOTICES.md` for licensing. Keep the MIT and font notices when sharing the customized code. The Dennis recreation has no explicit license file, so its code is not incorporated into your application.
 
